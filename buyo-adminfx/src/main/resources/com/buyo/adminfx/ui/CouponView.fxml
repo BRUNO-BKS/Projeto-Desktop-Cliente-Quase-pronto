@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.buyo.adminfx.ui.controllers.CouponsController">
+    <top>
+        <ToolBar>
+            <Label text="Cupons" />
+            <Separator />
+            <Label text="Código:" />
+            <TextField fx:id="codeFilter" promptText="ex: DESC" prefWidth="120" />
+            <CheckBox fx:id="activeOnly" text="Ativos" selected="true" />
+            <Button text="Aplicar" onAction="#onApplyFilters" />
+            <Button text="Limpar" onAction="#onClearFilters" />
+            <Button text="Atualizar" onAction="#onRefresh" />
+            <Separator />
+            <Button text="Novo Cupom…" onAction="#onNewCoupon" />
+        </ToolBar>
+    </top>
+    <center>
+        <TableView fx:id="table">
+            <columns>
+                <TableColumn fx:id="colId" text="#" prefWidth="60" />
+                <TableColumn fx:id="colCode" text="Código" prefWidth="140" />
+                <TableColumn fx:id="colActive" text="Ativo" prefWidth="80" />
+                <TableColumn fx:id="colExpires" text="Expira" prefWidth="120" />
+                <TableColumn fx:id="colPercent" text="Percentual" prefWidth="100" />
+                <TableColumn fx:id="colAmount" text="Valor" prefWidth="120" />
+                <TableColumn fx:id="colMinimum" text="Mínimo" prefWidth="120" />
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>

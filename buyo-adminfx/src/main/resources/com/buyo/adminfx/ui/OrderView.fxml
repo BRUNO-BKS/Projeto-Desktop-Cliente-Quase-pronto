@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.DatePicker?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.buyo.adminfx.ui.controllers.OrderController">
+    <top>
+        <ToolBar>
+            <Label text="Pedidos" />
+            <Separator />
+            <Button text="Novo" onAction="#onNewOrder" />
+            <Button text="Itens…" onAction="#onItems" />
+            <Button text="Mudar Status…" onAction="#onChangeStatus" />
+            <Button text="Remover Item…" onAction="#onRemoveItem" />
+            <Button text="Histórico…" onAction="#onHistory" />
+            <Button text="Atualizar" onAction="#onRefresh" />
+            <Button text="Exportar CSV" onAction="#onExportCsv" />
+            <Button text="Exportar Pedido…" onAction="#onExportOrder" />
+            <Button text="Aplicar Cupom…" onAction="#onApplyCoupon" />
+            <Separator />
+            <Label text="Status:" />
+            <ComboBox fx:id="statusFilter" prefWidth="140" />
+            <Label text="De:" />
+            <DatePicker fx:id="dateFrom" />
+            <Label text="Até:" />
+            <DatePicker fx:id="dateTo" />
+            <Button text="Aplicar" onAction="#onApplyFilters" />
+            <Button text="Limpar" onAction="#onClearFilters" />
+        </ToolBar>
+    </top>
+    <center>
+        <TableView fx:id="table">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="60" />
+                <TableColumn fx:id="colCustomerId" text="Cliente ID" prefWidth="100" />
+                <TableColumn fx:id="colCustomerName" text="Cliente" prefWidth="180" />
+                <TableColumn fx:id="colStatus" text="Status" prefWidth="120" />
+                <TableColumn fx:id="colTotal" text="Total" prefWidth="120" />
+                <TableColumn fx:id="colCreatedAt" text="Criado em" prefWidth="180" />
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.buyo.adminfx.ui.controllers.OrderItemsController">
+    <top>
+        <ToolBar>
+            <Label text="Itens do Pedido" />
+            <Separator />
+            <Label fx:id="orderLabel" />
+        </ToolBar>
+    </top>
+    <center>
+        <TableView fx:id="itemsTable">
+            <columns>
+                <TableColumn fx:id="colId" text="#" prefWidth="60" />
+                <TableColumn fx:id="colProduct" text="Produto" prefWidth="220" />
+                <TableColumn fx:id="colStock" text="Estoque" prefWidth="90" />
+                <TableColumn fx:id="colQuantity" text="Qtd" prefWidth="80" />
+                <TableColumn fx:id="colUnitPrice" text="Preço" prefWidth="100" />
+                <TableColumn fx:id="colSubtotal" text="Subtotal" prefWidth="120" />
+            </columns>
+        </TableView>
+    </center>
+    <bottom>
+        <HBox spacing="10" alignment="CENTER_RIGHT" BorderPane.alignment="CENTER">
+            <Label text="Total:" />
+            <Label fx:id="totalLabel" style="-fx-font-weight: bold;" />
+            <Pane HBox.hgrow="ALWAYS" />
+            <Button text="Adicionar" onAction="#onAdd" />
+            <Button text="Editar…" onAction="#onEdit" />
+            <Button text="Remover" onAction="#onRemove" />
+            <Button text="Exportar CSV" onAction="#onExportCsv" />
+            <Button text="Fechar" onAction="#onClose" />
+            <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+        </HBox>
+    </bottom>
+</BorderPane>

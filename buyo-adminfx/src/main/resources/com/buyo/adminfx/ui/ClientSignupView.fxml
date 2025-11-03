@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.buyo.adminfx.ui.controllers.ClientSignupController">
+    <center>
+        <VBox spacing="10" alignment="CENTER" BorderPane.alignment="CENTER">
+            <padding><Insets top="40" left="40" right="40" bottom="40"/></padding>
+            <Label text="Criar Cliente" style="-fx-font-size: 20; -fx-font-weight: bold;" />
+            <TextField fx:id="nameField" promptText="Nome" prefWidth="340" />
+            <TextField fx:id="emailField" promptText="Email" prefWidth="340" />
+            <PasswordField fx:id="passwordField" promptText="Senha" prefWidth="340" />
+            <PasswordField fx:id="confirmField" promptText="Confirmar senha" prefWidth="340" />
+            <Button text="Criar cliente" onAction="#onCreateClient" prefWidth="340" />
+            <Hyperlink text="Voltar ao login" onAction="#onBackToLogin"/>
+            <Label fx:id="errorLabel" textFill="red" />
+            <Label fx:id="successLabel" textFill="green" />
+        </VBox>
+    </center>
+</BorderPane>

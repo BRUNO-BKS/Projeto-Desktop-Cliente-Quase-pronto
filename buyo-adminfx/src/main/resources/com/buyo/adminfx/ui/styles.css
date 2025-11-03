@@ -1,0 +1,30 @@
+/* Top bar styling */
+.top-bar {
+  -fx-background-color: #ffffff;
+  -fx-padding: 10 15;
+}
+
+/* Search field */
+.text-field {
+  -fx-background-radius: 6;
+  -fx-border-radius: 6;
+}
+
+/* Avatar circle */
+.avatar {
+  -fx-fill: linear-gradient(to bottom right, #4f46e5, #06b6d4);
+}
+
+/* Profile menu */
+.menu-button {
+  -fx-background-radius: 8;
+}
+
+/* Table styling */
+.table-view {
+  -fx-table-cell-border-color: #e5e7eb;
+  -fx-border-color: #e5e7eb;
+}
+.table-view .column-header-background {
+  -fx-background-color: #f3f4f6;
+}
