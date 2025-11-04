@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.Node;
@@ -25,10 +24,6 @@ public class MainController {
     @FXML
     private BorderPane rootPane;
 
-    @FXML
-    private TextField searchField;
-
-    private SearchableController currentSearchable;
     private boolean inProfile = false;
     private Node leftBackup;
 
@@ -145,19 +140,7 @@ public class MainController {
         setCenterView("/com/buyo/adminfx/ui/ReviewView.fxml");
     }
 
-    @FXML
-    public void onSearch(ActionEvent e) {
-        String query = searchField != null ? searchField.getText() : "";
-        if (currentSearchable != null) {
-            currentSearchable.applySearch(query == null ? "" : query);
-        } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText(null);
-            alert.setTitle("Busca");
-            alert.setContentText("Abra uma tela (Clientes/Produtos/Pedidos) para usar a busca.");
-            alert.show();
-        }
-    }
+    
 
     @FXML
     public void onProfile(ActionEvent e) {
@@ -193,6 +176,15 @@ public class MainController {
     @FXML
     public void onLogout(ActionEvent e) {
         try {
+            int uid = -1;
+            if (Session.getCurrentUser() != null) {
+                uid = Session.getCurrentUser().getId();
+            }
+            try {
+                if (uid > 0) {
+                    new com.buyo.adminfx.dao.UserDAO().setOnline(uid, false);
+                }
+            } catch (Exception ignore) {}
             Session.clear();
             try { RememberMe.clear(); } catch (Exception ignore) {}
             URL fxml = getClass().getResource("/com/buyo/adminfx/ui/LoginView.fxml");
@@ -211,7 +203,7 @@ public class MainController {
             var css = getClass().getResource("/com/buyo/adminfx/ui/styles.css");
             if (css != null) scene.getStylesheets().add(css.toExternalForm());
             var stage = (javafx.stage.Stage) rootPane.getScene().getWindow();
-            stage.setTitle("Buyo AdminFX - Login");
+            stage.setTitle("ByteForge AdminFX - Login");
             stage.setScene(scene);
             stage.show();
         } catch (Exception ex) {
@@ -239,12 +231,6 @@ public class MainController {
             }
             FXMLLoader loader = new FXMLLoader(fxml);
             Node content = loader.load();
-            Object controller = loader.getController();
-            if (controller instanceof SearchableController) {
-                currentSearchable = (SearchableController) controller;
-            } else {
-                currentSearchable = null;
-            }
             rootPane.setCenter(content);
             // Ao sair do perfil, restaura menu esquerdo
             if (inProfile) {

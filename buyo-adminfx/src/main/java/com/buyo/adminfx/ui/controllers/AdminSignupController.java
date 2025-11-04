@@ -75,7 +75,7 @@ public class AdminSignupController {
             if (css != null) scene.getStylesheets().add(css.toExternalForm());
             // Usa qualquer controle da tela para obter o Stage (mais robusto que e.getSource())
             Stage stage = (Stage) errorLabel.getScene().getWindow();
-            stage.setTitle("Buyo AdminFX - Login");
+            stage.setTitle("ByteForge AdminFX - Login");
             stage.setScene(scene);
             stage.show();
         } catch (Exception ex) {

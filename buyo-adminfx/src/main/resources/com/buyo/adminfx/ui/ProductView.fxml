@@ -25,6 +25,7 @@
                 <TableColumn fx:id="colStock" text="Estoque" prefWidth="100" />
                 <TableColumn fx:id="colCategory" text="Categoria" prefWidth="160" />
                 <TableColumn fx:id="colImage" text="Imagem" prefWidth="120" />
+                <TableColumn fx:id="colActive" text="Ativo" prefWidth="90" />
             </columns>
         </TableView>
     </center>

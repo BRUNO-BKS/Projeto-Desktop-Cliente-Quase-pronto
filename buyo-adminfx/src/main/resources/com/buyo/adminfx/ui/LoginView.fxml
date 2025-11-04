@@ -8,7 +8,7 @@
     <center>
         <VBox spacing="12" alignment="CENTER" BorderPane.alignment="CENTER">
             <padding><Insets top="40" left="40" right="40" bottom="40"/></padding>
-            <Label text="Buyo AdminFX" style="-fx-font-size: 20; -fx-font-weight: bold;" />
+            <Label text="ByteForge AdminFX" style="-fx-font-size: 20; -fx-font-weight: bold;" />
             <Label text="Faça login" />
             <TextField fx:id="emailField" promptText="Email" prefWidth="320" onAction="#onLogin" />
             <PasswordField fx:id="passwordField" promptText="Senha" prefWidth="320" onAction="#onLogin" />

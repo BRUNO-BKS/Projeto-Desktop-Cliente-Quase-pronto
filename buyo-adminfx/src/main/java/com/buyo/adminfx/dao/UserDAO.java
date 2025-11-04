@@ -16,6 +16,25 @@ public class UserDAO {
         return lastError;
     }
 
+    public void setOnline(int userId, boolean online) {
+        String sql = "UPDATE usuarios SET is_online = ? WHERE id = ?";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, online ? 1 : 0);
+            ps.setInt(2, userId);
+            ps.executeUpdate();
+        } catch (SQLException ignore) {}
+    }
+
+    public void updateLastActive(int userId) {
+        String sql = "UPDATE usuarios SET last_active = CURRENT_TIMESTAMP WHERE id = ?";
+        try (Connection conn = Database.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            ps.executeUpdate();
+        } catch (SQLException ignore) {}
+    }
+
     public boolean ensureUsersTable() {
         String ddl = "CREATE TABLE IF NOT EXISTS usuarios (" +
                 "id INT AUTO_INCREMENT PRIMARY KEY, " +
@@ -71,6 +90,10 @@ public class UserDAO {
                     }
 
                     if (!ok) return null;
+                    // Atualiza último login
+                    try {
+                        updateLastActive(id);
+                    } catch (Exception ignore) {}
                     User u = new User(id, nome, mail, admin);
                     try { u.setPhone(rs.getString("telefone")); } catch (Exception ignore) {}
                     try { u.setPhotoUrl(rs.getString("foto_url")); } catch (Exception ignore) {}
@@ -157,6 +180,42 @@ public class UserDAO {
                     if (!rs.next()) {
                         try (PreparedStatement add = conn.prepareStatement(
                                 "ALTER TABLE usuarios ADD COLUMN foto_url VARCHAR(500)")) {
+                            add.execute();
+                        }
+                    }
+                }
+            }
+            // created_at
+            try (PreparedStatement chk = conn.prepareStatement(
+                    "SELECT 1 FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'usuarios' AND COLUMN_NAME = 'created_at'")) {
+                try (ResultSet rs = chk.executeQuery()) {
+                    if (!rs.next()) {
+                        try (PreparedStatement add = conn.prepareStatement(
+                                "ALTER TABLE usuarios ADD COLUMN created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP")) {
+                            add.execute();
+                        }
+                    }
+                }
+            }
+            // last_active
+            try (PreparedStatement chk = conn.prepareStatement(
+                    "SELECT 1 FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'usuarios' AND COLUMN_NAME = 'last_active'")) {
+                try (ResultSet rs = chk.executeQuery()) {
+                    if (!rs.next()) {
+                        try (PreparedStatement add = conn.prepareStatement(
+                                "ALTER TABLE usuarios ADD COLUMN last_active TIMESTAMP NULL DEFAULT NULL")) {
+                            add.execute();
+                        }
+                    }
+                }
+            }
+            // is_online
+            try (PreparedStatement chk = conn.prepareStatement(
+                    "SELECT 1 FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'usuarios' AND COLUMN_NAME = 'is_online'")) {
+                try (ResultSet rs = chk.executeQuery()) {
+                    if (!rs.next()) {
+                        try (PreparedStatement add = conn.prepareStatement(
+                                "ALTER TABLE usuarios ADD COLUMN is_online TINYINT(1) NOT NULL DEFAULT 0")) {
                             add.execute();
                         }
                     }

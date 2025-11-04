@@ -15,16 +15,17 @@ public class ProductDAO {
     public List<Product> listAll() {
         List<Product> list = new ArrayList<>();
         String sql = "SELECT p.id, p.nome_produto AS name, p.preco AS price, IFNULL(e.quantidade, 0) AS stock, " +
-                     "p.categoria_id AS category_id, c.nome AS category_name, p.imagem_url AS image_url " +
+                     "p.categoria_id AS category_id, c.nome AS category_name, p.imagem_url AS image_url, p.ativo AS active " +
                      "FROM produtos p " +
                      "LEFT JOIN estoque e ON e.produto_id = p.id " +
                      "LEFT JOIN categorias c ON c.id = p.categoria_id " +
-                     "WHERE p.ativo = 1 " +
                      "ORDER BY p.id DESC";
         try (Connection conn = Database.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
              ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
+                boolean active = false;
+                try { active = rs.getInt("active") == 1; } catch (Exception ignore) {}
                 list.add(new Product(
                     rs.getInt("id"),
                     rs.getString("name"),
@@ -32,7 +33,8 @@ public class ProductDAO {
                     rs.getInt("stock"),
                     (Integer) rs.getObject("category_id"),
                     rs.getString("category_name"),
-                    rs.getString("image_url")
+                    rs.getString("image_url"),
+                    active
                 ));
             }
         } catch (Exception e) {

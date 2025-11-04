@@ -23,6 +23,8 @@ import javafx.stage.Stage;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -35,6 +37,7 @@ public class ProductController implements SearchableController {
     @FXML private TableColumn<Product, Integer> colStock;
     @FXML private TableColumn<Product, String> colCategory;
     @FXML private TableColumn<Product, String> colImage;
+    @FXML private TableColumn<Product, String> colActive;
     @FXML private ComboBox<String> categoryFilter;
 
     private ObservableList<Product> masterData;
@@ -55,10 +58,16 @@ public class ProductController implements SearchableController {
             colImage.setCellValueFactory(new PropertyValueFactory<>("imageUrl"));
             colImage.setCellFactory(col -> new TableCell<>() {
                 private final ImageView imageView = new ImageView();
+                private final javafx.scene.shape.Rectangle overlay = new javafx.scene.shape.Rectangle(80, 60);
+                private final javafx.scene.layout.StackPane stack = new javafx.scene.layout.StackPane();
                 {
                     imageView.setFitWidth(80);
                     imageView.setFitHeight(60);
                     imageView.setPreserveRatio(true);
+                    imageView.setSmooth(true);
+                    overlay.setFill(javafx.scene.paint.Color.color(0,0,0,0.45));
+                    overlay.setMouseTransparent(true);
+                    stack.getChildren().addAll(imageView, overlay);
                 }
                 @Override
                 protected void updateItem(String url, boolean empty) {
@@ -67,14 +76,53 @@ public class ProductController implements SearchableController {
                         setGraphic(null);
                     } else {
                         try {
-                            imageView.setImage(new Image(url, true));
-                            setGraphic(imageView);
+                            String src = url;
+                            try {
+                                // Se for caminho local sem esquema, tenta converter para URI de arquivo
+                                if (!(src.startsWith("http://") || src.startsWith("https://") || src.startsWith("file:"))) {
+                                    java.nio.file.Path p = java.nio.file.Paths.get(src);
+                                    if (java.nio.file.Files.exists(p)) {
+                                        src = p.toUri().toString();
+                                    }
+                                }
+                            } catch (Exception ignore) {}
+                            // Proxy para .webp -> PNG (sem dependências externas no app)
+                            if (src.toLowerCase().endsWith(".webp")) {
+                                String encoded = URLEncoder.encode(src, StandardCharsets.UTF_8);
+                                src = "https://images.weserv.nl/?url=" + encoded + "&output=png";
+                            }
+                            Image img = new Image(src, true);
+                            img.errorProperty().addListener((ob, ov, nv) -> {
+                                if (nv != null && nv) {
+                                    // placeholder simples quando falhar
+                                    imageView.setImage(null);
+                                    javafx.scene.control.Label ph = new javafx.scene.control.Label("IMG");
+                                    ph.setStyle("-fx-background-color: #ddd; -fx-text-fill: #666; -fx-padding: 4 8; -fx-font-size: 10;");
+                                    ph.setMinSize(80, 60);
+                                    ph.setMaxSize(80, 60);
+                                    stack.getChildren().setAll(ph, overlay);
+                                    javafx.scene.control.Tooltip.install(stack, new javafx.scene.control.Tooltip("Falha ao carregar imagem."));
+                                }
+                            });
+                            imageView.setImage(img);
+                            // garante que imageView esteja no stack em caso de sucesso
+                            if (!stack.getChildren().contains(imageView)) {
+                                stack.getChildren().clear();
+                                stack.getChildren().addAll(imageView, overlay);
+                            }
+                            var prod = (Product) getTableRow().getItem();
+                            boolean active = prod != null && prod.isActive();
+                            overlay.setVisible(!active);
+                            setGraphic(stack);
                         } catch (Exception ex) {
                             setGraphic(null);
                         }
                     }
                 }
             });
+        }
+        if (colActive != null) {
+            colActive.setCellValueFactory(new PropertyValueFactory<>("activeText"));
         }
 
         masterData = FXCollections.observableArrayList(new ProductDAO().listAll());

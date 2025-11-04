@@ -10,6 +10,7 @@ public class Product {
     private Integer categoryId;
     private String categoryName;
     private String imageUrl;
+    private boolean active;
 
     public Product() {}
 
@@ -28,6 +29,17 @@ public class Product {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.imageUrl = imageUrl;
+    }
+
+    public Product(int id, String name, BigDecimal price, int stock, Integer categoryId, String categoryName, String imageUrl, boolean active) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
+        this.imageUrl = imageUrl;
+        this.active = active;
     }
 
     public int getId() { return id; }
@@ -50,4 +62,9 @@ public class Product {
 
     public String getImageUrl() { return imageUrl; }
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+
+    public boolean isActive() { return active; }
+    public void setActive(boolean active) { this.active = active; }
+
+    public String getActiveText() { return active ? "Ativo" : "Inativo"; }
 }

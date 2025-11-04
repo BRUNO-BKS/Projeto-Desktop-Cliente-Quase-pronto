@@ -16,6 +16,8 @@ public class CustomerController implements SearchableController {
     @FXML private TableColumn<Customer, String> colName;
     @FXML private TableColumn<Customer, String> colEmail;
     @FXML private TableColumn<Customer, String> colPhone;
+    @FXML private TableColumn<Customer, String> colCreatedAt;
+    @FXML private TableColumn<Customer, String> colLastActive;
 
     private ObservableList<Customer> masterData;
     private FilteredList<Customer> filtered;
@@ -26,6 +28,12 @@ public class CustomerController implements SearchableController {
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
         colPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+        if (colCreatedAt != null) {
+            colCreatedAt.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
+        }
+        if (colLastActive != null) {
+            colLastActive.setCellValueFactory(new PropertyValueFactory<>("lastActive"));
+        }
 
         masterData = FXCollections.observableArrayList(new CustomerDAO().listAll());
         filtered = new FilteredList<>(masterData, c -> true);
@@ -46,7 +54,9 @@ public class CustomerController implements SearchableController {
             String name = c.getName() == null ? "" : c.getName().toLowerCase();
             String email = c.getEmail() == null ? "" : c.getEmail().toLowerCase();
             String phone = c.getPhone() == null ? "" : c.getPhone().toLowerCase();
-            return id.contains(q) || name.contains(q) || email.contains(q) || phone.contains(q);
+            String created = c.getCreatedAt() == null ? "" : c.getCreatedAt().toLowerCase();
+            String last = c.getLastActive() == null ? "" : c.getLastActive().toLowerCase();
+            return id.contains(q) || name.contains(q) || email.contains(q) || phone.contains(q) || created.contains(q) || last.contains(q);
         });
     }
 }

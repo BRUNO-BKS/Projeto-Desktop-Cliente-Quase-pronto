@@ -40,6 +40,10 @@ public class LoginController {
         }
         Session.setCurrentUser(user);
         try {
+            userDAO.setOnline(user.getId(), true);
+            userDAO.updateLastActive(user.getId());
+        } catch (Exception ignore) {}
+        try {
             if (rememberCheck != null && rememberCheck.isSelected()) {
                 RememberMe.save(user.getId());
             } else {
@@ -73,7 +77,7 @@ public class LoginController {
             URL css = getClass().getResource("/com/buyo/adminfx/ui/styles.css");
             if (css != null) scene.getStylesheets().add(css.toExternalForm());
             Stage stage = (Stage) ((javafx.scene.Node) e.getSource()).getScene().getWindow();
-            stage.setTitle("Buyo AdminFX");
+            stage.setTitle("byte forge AdminFX");
             stage.setScene(scene);
             stage.show();
         } catch (Exception ex) {

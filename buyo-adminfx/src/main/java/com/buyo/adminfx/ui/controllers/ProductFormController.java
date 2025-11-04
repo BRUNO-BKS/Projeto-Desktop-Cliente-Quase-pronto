@@ -60,7 +60,7 @@ public class ProductFormController {
         if (p.getCategoryName() != null) {
             categoryCombo.getSelectionModel().select(p.getCategoryName());
         }
-        activeCheck.setSelected(true);
+        activeCheck.setSelected(p.isActive());
     }
 
     @FXML

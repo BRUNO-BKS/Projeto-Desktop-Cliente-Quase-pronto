@@ -16,6 +16,8 @@
                 <TableColumn fx:id="colName" text="Nome" prefWidth="200" />
                 <TableColumn fx:id="colEmail" text="Email" prefWidth="240" />
                 <TableColumn fx:id="colPhone" text="Telefone" prefWidth="160" />
+                <TableColumn fx:id="colCreatedAt" text="Criado em" prefWidth="180" />
+                <TableColumn fx:id="colLastActive" text="Último ativo" prefWidth="180" />
             </columns>
         </TableView>
     </center>

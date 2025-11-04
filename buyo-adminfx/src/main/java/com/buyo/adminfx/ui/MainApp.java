@@ -22,6 +22,9 @@ public class MainApp extends Application {
         URL fxmlUrl;
         if (remembered != null) {
             Session.setCurrentUser(remembered);
+            try {
+                new UserDAO().updateLastActive(remembered.getId());
+            } catch (Exception ignore) {}
             fxmlUrl = MainApp.class.getResource("/com/buyo/adminfx/ui/MainView.fxml");
             if (fxmlUrl == null) {
                 String userDir = System.getProperty("user.dir");
@@ -72,7 +75,7 @@ public class MainApp extends Application {
         } catch (Exception ignore) {
             // se falhar, apenas continua; o app ainda pode iniciar para cadastro manual
         }
-        primaryStage.setTitle(remembered != null ? "Buyo AdminFX" : "Buyo AdminFX - Login");
+        primaryStage.setTitle(remembered != null ? "ByteForge AdminFX" : "ByteForge AdminFX - Login");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
