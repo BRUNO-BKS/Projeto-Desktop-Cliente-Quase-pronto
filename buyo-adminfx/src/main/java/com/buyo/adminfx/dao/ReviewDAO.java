@@ -39,7 +39,7 @@ public class ReviewDAO {
                     ));
                 }
             }
-        } catch (Exception e) { }
+        } catch (Exception e) { e.printStackTrace(); }
         return out;
     }
 
@@ -50,7 +50,7 @@ public class ReviewDAO {
             ps.setString(1, newStatus);
             ps.setInt(2, id);
             return ps.executeUpdate() > 0;
-        } catch (Exception e) { return false; }
+        } catch (Exception e) { e.printStackTrace(); return false; }
     }
 
     private java.time.LocalDateTime toLdt(Timestamp t) { return t == null ? null : t.toLocalDateTime(); }
