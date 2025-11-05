@@ -75,7 +75,7 @@ public class MainApp extends Application {
         } catch (Exception ignore) {
             // se falhar, apenas continua; o app ainda pode iniciar para cadastro manual
         }
-        primaryStage.setTitle(remembered != null ? "ByteForge AdminFX" : "ByteForge AdminFX - Login");
+        primaryStage.setTitle(remembered != null ? "StockRO AdminFX" : "StockRO AdminFX - Login");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

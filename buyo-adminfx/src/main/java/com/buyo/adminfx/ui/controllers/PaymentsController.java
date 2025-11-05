@@ -118,11 +118,22 @@ public class PaymentsController implements SearchableController {
         String tx = txRes.get().trim();
 
         boolean ok = dao.insert(oid, amount, method, status, tx);
-        if (!ok) { error("Pagamento", "Falha ao registrar pagamento."); return; }
+        if (!ok) {
+            String why = (dao.getLastError() == null || dao.getLastError().isBlank()) ? "" : (" Detalhes: " + dao.getLastError());
+            error("Pagamento", "Falha ao registrar pagamento." + why);
+            return;
+        }
         if ("CONFIRMADO".equalsIgnoreCase(status)) {
             try {
-                new PaymentService().onPaymentConfirmed(oid);
-            } catch (Exception ignore) {}
+                PaymentService svc = new PaymentService();
+                boolean okConf = svc.onPaymentConfirmed(oid);
+                if (!okConf) {
+                    String why = svc.getLastError();
+                    error("Pagamento", "Falha ao confirmar (baixar estoque)." + (why == null || why.isBlank() ? "" : (" Detalhes: " + why)));
+                }
+            } catch (Exception ex) {
+                error("Pagamento", "Erro ao confirmar pagamento: " + ex.getMessage());
+            }
         }
         info("Pagamento", "Pagamento registrado.");
         refresh();

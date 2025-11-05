@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.TextField;
 
 public class CustomerController implements SearchableController {
     @FXML private TableView<Customer> table;
@@ -18,6 +19,7 @@ public class CustomerController implements SearchableController {
     @FXML private TableColumn<Customer, String> colPhone;
     @FXML private TableColumn<Customer, String> colCreatedAt;
     @FXML private TableColumn<Customer, String> colLastActive;
+    @FXML private TextField searchField;
 
     private ObservableList<Customer> masterData;
     private FilteredList<Customer> filtered;
@@ -38,6 +40,9 @@ public class CustomerController implements SearchableController {
         masterData = FXCollections.observableArrayList(new CustomerDAO().listAll());
         filtered = new FilteredList<>(masterData, c -> true);
         table.setItems(filtered);
+        if (searchField != null) {
+            searchField.textProperty().addListener((obs, ov, nv) -> applySearch(nv));
+        }
     }
 
     @Override

@@ -14,11 +14,14 @@ import java.math.BigDecimal;
 public class ProductDAO {
     public List<Product> listAll() {
         List<Product> list = new ArrayList<>();
-        String sql = "SELECT p.id, p.nome_produto AS name, p.preco AS price, IFNULL(e.quantidade, 0) AS stock, " +
-                     "p.categoria_id AS category_id, c.nome AS category_name, p.imagem_url AS image_url, p.ativo AS active " +
+        String sql = "SELECT p.id, p.nome_produto AS name, p.preco AS price, " +
+                     "       IFNULL(MAX(e.quantidade), 0) AS stock, " +
+                     "       p.categoria_id AS category_id, c.nome AS category_name, " +
+                     "       p.imagem_url AS image_url, p.ativo AS active " +
                      "FROM produtos p " +
                      "LEFT JOIN estoque e ON e.produto_id = p.id " +
                      "LEFT JOIN categorias c ON c.id = p.categoria_id " +
+                     "GROUP BY p.id, p.nome_produto, p.preco, p.categoria_id, c.nome, p.imagem_url, p.ativo " +
                      "ORDER BY p.id DESC";
         try (Connection conn = Database.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
@@ -82,11 +85,19 @@ public class ProductDAO {
             ps.setInt(5, active ? 1 : 0);
             ps.setInt(6, id);
             int r1 = ps.executeUpdate();
-            int r2 = 1;
-            try (PreparedStatement psEst = conn.prepareStatement("INSERT INTO estoque (produto_id, quantidade) VALUES (?,?) ON DUPLICATE KEY UPDATE quantidade=VALUES(quantidade)")) {
-                psEst.setInt(1, id);
-                psEst.setInt(2, stock);
-                r2 = psEst.executeUpdate();
+            int r2;
+            // Primeiro tenta atualizar; se não existir, insere
+            try (PreparedStatement psUpd = conn.prepareStatement("UPDATE estoque SET quantidade = ? WHERE produto_id = ?")) {
+                psUpd.setInt(1, stock);
+                psUpd.setInt(2, id);
+                r2 = psUpd.executeUpdate();
+            }
+            if (r2 == 0) {
+                try (PreparedStatement psIns = conn.prepareStatement("INSERT INTO estoque (produto_id, quantidade) VALUES (?,?)")) {
+                    psIns.setInt(1, id);
+                    psIns.setInt(2, stock);
+                    r2 = psIns.executeUpdate();
+                }
             }
             return r1 > 0 && r2 > 0;
         } catch (Exception e) {

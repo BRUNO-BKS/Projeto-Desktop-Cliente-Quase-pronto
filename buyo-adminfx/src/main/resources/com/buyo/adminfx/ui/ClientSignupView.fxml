@@ -8,13 +8,12 @@
     <center>
         <VBox spacing="10" alignment="CENTER" BorderPane.alignment="CENTER">
             <padding><Insets top="40" left="40" right="40" bottom="40"/></padding>
-            <Label text="Criar Cliente" style="-fx-font-size: 20; -fx-font-weight: bold;" />
+            <Label text="Cadastrar Colaborador" style="-fx-font-size: 20; -fx-font-weight: bold;" />
             <TextField fx:id="nameField" promptText="Nome" prefWidth="340" />
             <TextField fx:id="emailField" promptText="Email" prefWidth="340" />
             <PasswordField fx:id="passwordField" promptText="Senha" prefWidth="340" />
             <PasswordField fx:id="confirmField" promptText="Confirmar senha" prefWidth="340" />
-            <Button text="Criar cliente" onAction="#onCreateClient" prefWidth="340" />
-            <Hyperlink text="Voltar ao login" onAction="#onBackToLogin"/>
+            <Button text="Cadastrar colaborador" onAction="#onCreateClient" prefWidth="340" />
             <Label fx:id="errorLabel" textFill="red" />
             <Label fx:id="successLabel" textFill="green" />
         </VBox>

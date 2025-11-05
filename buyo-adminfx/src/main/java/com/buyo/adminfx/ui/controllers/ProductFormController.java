@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
@@ -24,13 +25,15 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class ProductFormController {
     @FXML private TextField nameField;
     @FXML private TextField priceField;
     @FXML private ComboBox<String> categoryCombo;
     @FXML private TextField stockField;
-    @FXML private TextField imageUrlField;
+    @FXML private TextArea imageUrlField;
     @FXML private javafx.scene.control.CheckBox activeCheck;
     @FXML private Label statusLabel;
     @FXML private javafx.scene.control.CheckBox createCategoryCheck;
@@ -54,7 +57,19 @@ public class ProductFormController {
         if (p == null) return;
         editingId = p.getId();
         nameField.setText(p.getName());
-        priceField.setText(p.getPrice() == null ? "" : p.getPrice().toPlainString());
+        if (p.getPrice() == null) {
+            priceField.setText("");
+        } else {
+            try {
+                NumberFormat nf = NumberFormat.getNumberInstance(new Locale("pt","BR"));
+                nf.setGroupingUsed(true);
+                nf.setMinimumFractionDigits(2);
+                nf.setMaximumFractionDigits(2);
+                priceField.setText(nf.format(p.getPrice()));
+            } catch (Exception ignore) {
+                priceField.setText(p.getPrice().toPlainString());
+            }
+        }
         stockField.setText(String.valueOf(p.getStock()));
         imageUrlField.setText(p.getImageUrl());
         if (p.getCategoryName() != null) {
@@ -70,7 +85,9 @@ public class ProductFormController {
         fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imagens", "*.png", "*.jpg", "*.jpeg", "*.gif"));
         File f = fc.showOpenDialog(nameField.getScene().getWindow());
         if (f != null) {
-            imageUrlField.setText(f.toURI().toString());
+            String cur = trim(imageUrlField.getText());
+            String add = f.toURI().toString();
+            imageUrlField.setText(cur.isBlank() ? add : (cur + "\n" + add));
             setStatus("Imagem selecionada.");
         }
     }
@@ -89,7 +106,15 @@ public class ProductFormController {
         }
         BigDecimal price;
         try {
-            price = new BigDecimal(priceStr.replace(",", "."));
+            String normalized;
+            if (priceStr.contains(",")) {
+                // Formato BR: 5.890,00 -> 5890.00
+                normalized = priceStr.replace(".", "").replace(",", ".");
+            } else {
+                // Já está em formato com ponto decimal (ex.: 5890.00)
+                normalized = priceStr;
+            }
+            price = new BigDecimal(normalized.trim());
         } catch (Exception ex) {
             setStatus("Preço inválido.");
             return;

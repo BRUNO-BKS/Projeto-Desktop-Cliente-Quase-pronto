@@ -12,7 +12,6 @@
             <padding>
                 <Insets top="10" right="15" bottom="10" left="15" />
             </padding>
-            <Region HBox.hgrow="ALWAYS" />
             <MenuButton fx:id="profileMenu" text="" focusTraversable="false">
                 <graphic>
                     <HBox spacing="8" alignment="CENTER_LEFT">
@@ -25,12 +24,13 @@
                     <MenuItem text="Sair" onAction="#onLogout" />
                 </items>
             </MenuButton>
+            <Region HBox.hgrow="ALWAYS" />
         </HBox>
     </top>
     <left>
         <VBox spacing="10" BorderPane.alignment="CENTER" prefWidth="220" style="-fx-background-color: #f5f5f5;">
             <padding><Insets top="20" left="15" right="15" bottom="20"/></padding>
-            <Label text="ByteForge AdminFX" style="-fx-font-size: 18; -fx-font-weight: bold;" />
+            <Label text="StockRO AdminFX" style="-fx-font-size: 18; -fx-font-weight: bold;" />
             <Separator />
             <Button fx:id="btnCustomers" text="Clientes" onAction="#showCustomers" prefWidth="180" />
             <Button fx:id="btnProducts" text="Produtos" onAction="#showProducts" prefWidth="180" />
@@ -42,6 +42,14 @@
             <Button fx:id="btnCarts" text="Carrinhos" onAction="#showCarts" prefWidth="180" />
             <Button fx:id="btnReviews" text="Avaliações" onAction="#showReviews" prefWidth="180" />
             <Pane VBox.vgrow="ALWAYS" />
+            <MenuButton text="Configurações" focusTraversable="false" prefWidth="180">
+                <graphic>
+                    <Label text="⚙" />
+                </graphic>
+                <items>
+                    <MenuItem text="Cadastrar Colaborador" onAction="#onOpenCollaboratorSignup" />
+                </items>
+            </MenuButton>
         </VBox>
     </left>
     <center>

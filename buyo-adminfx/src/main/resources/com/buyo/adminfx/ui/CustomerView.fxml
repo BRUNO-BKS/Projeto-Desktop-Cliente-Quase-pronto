@@ -7,6 +7,8 @@
     <top>
         <ToolBar>
             <Label text="Clientes" />
+            <Pane HBox.hgrow="ALWAYS" />
+            <TextField fx:id="searchField" promptText="Pesquisar clientes..." prefWidth="260" />
         </ToolBar>
     </top>
     <center>

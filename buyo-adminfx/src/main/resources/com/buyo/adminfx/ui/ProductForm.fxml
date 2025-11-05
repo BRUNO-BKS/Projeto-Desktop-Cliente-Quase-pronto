@@ -30,11 +30,13 @@
             <Label text="Estoque:" GridPane.rowIndex="4" />
             <TextField fx:id="stockField" promptText="0" GridPane.rowIndex="4" GridPane.columnIndex="1" />
 
-            <Label text="Imagem (URL):" GridPane.rowIndex="5" />
-            <HBox spacing="8" GridPane.rowIndex="5" GridPane.columnIndex="1">
-                <TextField fx:id="imageUrlField" promptText="http(s):// ou file:///" HBox.hgrow="ALWAYS" />
-                <Button text="Escolher arquivo" onAction="#onPickImage" />
-            </HBox>
+            <Label text="Imagens (uma URL por linha):" GridPane.rowIndex="5" />
+            <VBox spacing="8" GridPane.rowIndex="5" GridPane.columnIndex="1">
+                <TextArea fx:id="imageUrlField" promptText="http(s):// ou file:///\numa por linha" prefRowCount="3" />
+                <HBox spacing="8">
+                    <Button text="Escolher arquivo" onAction="#onPickImage" />
+                </HBox>
+            </VBox>
 
             <CheckBox fx:id="activeCheck" text="Ativo" selected="true" GridPane.rowIndex="6" GridPane.columnIndex="1" />
 

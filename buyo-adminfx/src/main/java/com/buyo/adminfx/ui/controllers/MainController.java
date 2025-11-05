@@ -70,6 +70,81 @@ public class MainController {
         } catch (Exception ignore) {}
     }
 
+    @FXML
+    public void onOpenClientSignup(ActionEvent e) {
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        a.setHeaderText(null);
+        a.setTitle("Cadastro de Cliente");
+        a.setContentText("O cadastro de Cliente é externo a este sistema.");
+        a.show();
+    }
+
+    @FXML
+    public void onOpenCollaboratorSignup(ActionEvent e) {
+        try {
+            URL fxml = getClass().getResource("/com/buyo/adminfx/ui/ClientSignupView.fxml");
+            if (fxml == null) {
+                String userDir = System.getProperty("user.dir");
+                Path p1 = Paths.get(userDir, "buyo-adminfx", "src", "main", "resources", "com", "buyo", "adminfx", "ui", "ClientSignupView.fxml");
+                Path p2 = Paths.get(userDir, "src", "main", "resources", "com", "buyo", "adminfx", "ui", "ClientSignupView.fxml");
+                Path existing = Files.exists(p1) ? p1 : (Files.exists(p2) ? p2 : null);
+                if (existing != null) {
+                    fxml = existing.toUri().toURL();
+                }
+            }
+            FXMLLoader loader = new FXMLLoader(fxml);
+            Parent root = loader.load();
+            javafx.scene.Scene scene = new javafx.scene.Scene(root, 600, 420);
+            var css = getClass().getResource("/com/buyo/adminfx/ui/styles.css");
+            if (css != null) scene.getStylesheets().add(css.toExternalForm());
+            javafx.stage.Stage dlg = new javafx.stage.Stage();
+            dlg.setTitle("Cadastrar Colaborador");
+            dlg.initOwner(rootPane.getScene().getWindow());
+            dlg.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+            dlg.setScene(scene);
+            dlg.showAndWait();
+        } catch (Exception ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Cadastrar Colaborador");
+            alert.setContentText("Falha ao abrir cadastro: " + ex.getMessage());
+            alert.show();
+        }
+    }
+
+    @FXML
+    public void onOpenProductCreate(ActionEvent e) {
+        try {
+            URL fxml = getClass().getResource("/com/buyo/adminfx/ui/ProductForm.fxml");
+            if (fxml == null) {
+                String userDir = System.getProperty("user.dir");
+                Path p1 = Paths.get(userDir, "buyo-adminfx", "src", "main", "resources", "com", "buyo", "adminfx", "ui", "ProductForm.fxml");
+                Path p2 = Paths.get(userDir, "src", "main", "resources", "com", "buyo", "adminfx", "ui", "ProductForm.fxml");
+                Path existing = Files.exists(p1) ? p1 : (Files.exists(p2) ? p2 : null);
+                if (existing != null) {
+                    fxml = existing.toUri().toURL();
+                }
+            }
+            FXMLLoader loader = new FXMLLoader(fxml);
+            Parent root = loader.load();
+            javafx.scene.Scene scene = new javafx.scene.Scene(root, 520, 380);
+            var css = getClass().getResource("/com/buyo/adminfx/ui/styles.css");
+            if (css != null) scene.getStylesheets().add(css.toExternalForm());
+            javafx.stage.Stage dlg = new javafx.stage.Stage();
+            dlg.setTitle("Cadastrar Produto");
+            dlg.initOwner(rootPane.getScene().getWindow());
+            dlg.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+            dlg.setScene(scene);
+            dlg.showAndWait();
+        } catch (Exception ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Cadastrar Produto");
+            alert.setContentText("Falha ao abrir formulário: " + ex.getMessage());
+            alert.show();
+        }
+    }
+
     public static void refreshTopBarFromSession() {
         if (lastInstance == null) return;
         try {
@@ -143,6 +218,39 @@ public class MainController {
     
 
     @FXML
+    public void onOpenSignup(ActionEvent e) {
+        try {
+            URL fxml = getClass().getResource("/com/buyo/adminfx/ui/AdminSignupView.fxml");
+            if (fxml == null) {
+                String userDir = System.getProperty("user.dir");
+                Path p1 = Paths.get(userDir, "buyo-adminfx", "src", "main", "resources", "com", "buyo", "adminfx", "ui", "AdminSignupView.fxml");
+                Path p2 = Paths.get(userDir, "src", "main", "resources", "com", "buyo", "adminfx", "ui", "AdminSignupView.fxml");
+                Path existing = Files.exists(p1) ? p1 : (Files.exists(p2) ? p2 : null);
+                if (existing != null) {
+                    fxml = existing.toUri().toURL();
+                }
+            }
+            FXMLLoader loader = new FXMLLoader(fxml);
+            Parent root = loader.load();
+            javafx.scene.Scene scene = new javafx.scene.Scene(root, 600, 420);
+            var css = getClass().getResource("/com/buyo/adminfx/ui/styles.css");
+            if (css != null) scene.getStylesheets().add(css.toExternalForm());
+            javafx.stage.Stage dlg = new javafx.stage.Stage();
+            dlg.setTitle("Cadastro");
+            dlg.initOwner(rootPane.getScene().getWindow());
+            dlg.initModality(javafx.stage.Modality.APPLICATION_MODAL);
+            dlg.setScene(scene);
+            dlg.showAndWait();
+        } catch (Exception ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setTitle("Cadastro");
+            alert.setContentText("Falha ao abrir cadastro: " + ex.getMessage());
+            alert.show();
+        }
+    }
+
+    @FXML
     public void onProfile(ActionEvent e) {
         try {
             URL fxml = getClass().getResource("/com/buyo/adminfx/ui/ProfileView.fxml");
@@ -203,7 +311,7 @@ public class MainController {
             var css = getClass().getResource("/com/buyo/adminfx/ui/styles.css");
             if (css != null) scene.getStylesheets().add(css.toExternalForm());
             var stage = (javafx.stage.Stage) rootPane.getScene().getWindow();
-            stage.setTitle("ByteForge AdminFX - Login");
+            stage.setTitle("StockRO AdminFX - Login");
             stage.setScene(scene);
             stage.show();
         } catch (Exception ex) {

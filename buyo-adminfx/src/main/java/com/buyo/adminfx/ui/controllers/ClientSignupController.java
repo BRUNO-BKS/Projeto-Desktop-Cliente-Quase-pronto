@@ -70,7 +70,7 @@ public class ClientSignupController {
             URL css = getClass().getResource("/com/buyo/adminfx/ui/styles.css");
             if (css != null) scene.getStylesheets().add(css.toExternalForm());
             Stage stage = (Stage) ((javafx.scene.Node) e.getSource()).getScene().getWindow();
-            stage.setTitle("ByteForge AdminFX - Login");
+            stage.setTitle("StockRO AdminFX - Login");
             stage.setScene(scene);
             stage.show();
         } catch (Exception ex) {
