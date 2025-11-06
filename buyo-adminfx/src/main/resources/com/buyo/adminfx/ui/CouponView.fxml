@@ -10,7 +10,7 @@
             <Separator />
             <Label text="Código:" />
             <TextField fx:id="codeFilter" promptText="ex: DESC" prefWidth="120" />
-            <CheckBox fx:id="activeOnly" text="Ativos" selected="true" />
+            <CheckBox fx:id="activeOnly" text="Ativos" />
             <Button text="Aplicar" onAction="#onApplyFilters" />
             <Button text="Limpar" onAction="#onClearFilters" />
             <Button text="Atualizar" onAction="#onRefresh" />
@@ -26,8 +26,6 @@
                 <TableColumn fx:id="colActive" text="Ativo" prefWidth="80" />
                 <TableColumn fx:id="colExpires" text="Expira" prefWidth="120" />
                 <TableColumn fx:id="colPercent" text="Percentual" prefWidth="100" />
-                <TableColumn fx:id="colAmount" text="Valor" prefWidth="120" />
-                <TableColumn fx:id="colMinimum" text="Mínimo" prefWidth="120" />
             </columns>
         </TableView>
     </center>

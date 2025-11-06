@@ -22,10 +22,7 @@ public class ProductLogController implements SearchableController {
     @FXML private TableColumn<ProductLogEntry, Integer> colId;
     @FXML private TableColumn<ProductLogEntry, Integer> colProductId;
     @FXML private TableColumn<ProductLogEntry, String> colAction;
-    @FXML private TableColumn<ProductLogEntry, Integer> colQuantity;
     @FXML private TableColumn<ProductLogEntry, Integer> colAdminId;
-    @FXML private TableColumn<ProductLogEntry, Integer> colOrderId;
-    @FXML private TableColumn<ProductLogEntry, String> colNote;
     @FXML private TableColumn<ProductLogEntry, java.time.LocalDateTime> colCreatedAt;
 
     private final ProductLogDAO dao = new ProductLogDAO();
@@ -36,10 +33,7 @@ public class ProductLogController implements SearchableController {
         if (colId != null) colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         if (colProductId != null) colProductId.setCellValueFactory(new PropertyValueFactory<>("productId"));
         if (colAction != null) colAction.setCellValueFactory(new PropertyValueFactory<>("action"));
-        if (colQuantity != null) colQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
         if (colAdminId != null) colAdminId.setCellValueFactory(new PropertyValueFactory<>("adminId"));
-        if (colOrderId != null) colOrderId.setCellValueFactory(new PropertyValueFactory<>("orderId"));
-        if (colNote != null) colNote.setCellValueFactory(new PropertyValueFactory<>("note"));
         if (colCreatedAt != null) colCreatedAt.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
         if (table != null) table.setItems(rows);
         refresh();

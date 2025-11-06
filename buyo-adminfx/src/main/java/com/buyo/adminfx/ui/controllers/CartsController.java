@@ -65,7 +65,12 @@ public class CartsController implements SearchableController {
         try { if (userIdFilter != null && userIdFilter.getText() != null && !userIdFilter.getText().isBlank()) uid = Integer.parseInt(userIdFilter.getText().trim()); } catch (Exception ignore) {}
         List<Cart> list = dao.listCarts(uid);
         carts.setAll(list);
-        items.clear();
+        if (list != null && !list.isEmpty()) {
+            if (tableCarts != null) tableCarts.getSelectionModel().select(0);
+            loadItems(list.get(0).getId());
+        } else {
+            items.clear();
+        }
     }
 
     @FXML

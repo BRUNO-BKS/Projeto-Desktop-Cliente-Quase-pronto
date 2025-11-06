@@ -27,10 +27,7 @@
                 <TableColumn fx:id="colId" text="#" prefWidth="60" />
                 <TableColumn fx:id="colProductId" text="Produto" prefWidth="90" />
                 <TableColumn fx:id="colAction" text="Ação" prefWidth="120" />
-                <TableColumn fx:id="colQuantity" text="Qtd" prefWidth="80" />
                 <TableColumn fx:id="colAdminId" text="Admin" prefWidth="90" />
-                <TableColumn fx:id="colOrderId" text="Pedido" prefWidth="90" />
-                <TableColumn fx:id="colNote" text="Obs" prefWidth="220" />
                 <TableColumn fx:id="colCreatedAt" text="Criado em" prefWidth="180" />
             </columns>
         </TableView>

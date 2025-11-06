@@ -22,12 +22,10 @@
                 <TableColumn fx:id="colUserId" text="Usuário" prefWidth="80" />
                 <TableColumn fx:id="colStreet" text="Logradouro" prefWidth="160" />
                 <TableColumn fx:id="colNumber" text="Número" prefWidth="80" />
-                <TableColumn fx:id="colDistrict" text="Bairro" prefWidth="120" />
                 <TableColumn fx:id="colCity" text="Cidade" prefWidth="120" />
                 <TableColumn fx:id="colState" text="UF" prefWidth="60" />
                 <TableColumn fx:id="colZip" text="CEP" prefWidth="100" />
                 <TableColumn fx:id="colComplement" text="Compl." prefWidth="120" />
-                <TableColumn fx:id="colType" text="Tipo" prefWidth="100" />
             </columns>
         </TableView>
     </center>

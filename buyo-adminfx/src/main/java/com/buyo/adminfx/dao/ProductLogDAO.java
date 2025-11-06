@@ -24,46 +24,83 @@ public class ProductLogDAO {
             if (orderId == null) ps.setNull(5, java.sql.Types.INTEGER); else ps.setInt(5, orderId);
             ps.setString(6, note == null ? "" : note);
             return ps.executeUpdate() > 0;
-        } catch (Exception e) {
-            return false;
-        }
+        } catch (Exception e) { e.printStackTrace(); return false; }
     }
 
     public List<ProductLogEntry> list(Integer productId, Integer orderId, LocalDate from, LocalDate to) {
+        // Tenta primeiro 'produto_log'; se falhar, usa 'log_produtos'
+        try {
+            return listFromTable("produto_log", productId, orderId, from, to);
+        } catch (Exception first) {
+            System.out.println("[ProductLogDAO] Falha ao consultar 'produto_log', tentando 'log_produtos'. Causa: " + first.getMessage());
+            try {
+                return listFromTable("log_produtos", productId, orderId, from, to);
+            } catch (Exception second) {
+                second.printStackTrace();
+                return new ArrayList<>();
+            }
+        }
+    }
+
+    private List<ProductLogEntry> listFromTable(String table, Integer productId, Integer orderId, LocalDate from, LocalDate to) throws Exception {
         List<ProductLogEntry> out = new ArrayList<>();
-        StringBuilder sb = new StringBuilder();
-        sb.append("SELECT id, produto_id, tipo_acao, quantidade, admin_id, pedido_id, observacao, criado_em FROM log_produtos WHERE 1=1");
-        if (productId != null) sb.append(" AND produto_id = ?");
-        if (orderId != null) sb.append(" AND pedido_id = ?");
-        if (from != null) sb.append(" AND DATE(criado_em) >= ?");
-        if (to != null) sb.append(" AND DATE(criado_em) <= ?");
+        StringBuilder sb = new StringBuilder("SELECT a.* FROM ").append(table).append(" a WHERE 1=1");
+        if (productId != null) sb.append(" AND (a.produto_id = ? OR a.product_id = ?)");
+        if (orderId != null) sb.append(" AND (a.pedido_id = ? OR a.order_id = ?)");
+        if (from != null) sb.append(" AND DATE(COALESCE(a.criado_em, a.created_at, a.data_log)) >= ?");
+        if (to != null) sb.append(" AND DATE(COALESCE(a.criado_em, a.created_at, a.data_log)) <= ?");
         sb.append(" ORDER BY id DESC");
         try (Connection c = Database.getConnection();
              PreparedStatement ps = c.prepareStatement(sb.toString())) {
             int i = 1;
-            if (productId != null) ps.setInt(i++, productId);
-            if (orderId != null) ps.setInt(i++, orderId);
-            if (from != null) ps.setDate(i++, java.sql.Date.valueOf(from));
-            if (to != null) ps.setDate(i++, java.sql.Date.valueOf(to));
+            StringBuilder dbg = new StringBuilder("[ProductLogDAO] SQL(").append(table).append("): ").append(sb).append(" | params: ");
+            if (productId != null) { ps.setInt(i++, productId); ps.setInt(i++, productId); dbg.append("produto_id|product_id=").append(productId).append(";"); }
+            if (orderId != null) { ps.setInt(i++, orderId); ps.setInt(i++, orderId); dbg.append("pedido_id|order_id=").append(orderId).append(";"); }
+            if (from != null) { ps.setDate(i++, java.sql.Date.valueOf(from)); dbg.append("from=").append(from).append(";"); }
+            if (to != null) { ps.setDate(i++, java.sql.Date.valueOf(to)); dbg.append("to=").append(to).append(";"); }
+            System.out.println(dbg.toString());
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     out.add(new ProductLogEntry(
-                            rs.getInt("id"),
-                            rs.getInt("produto_id"),
-                            rs.getString("tipo_acao"),
-                            rs.getInt("quantidade"),
-                            (Integer) rs.getObject("admin_id"),
-                            (Integer) rs.getObject("pedido_id"),
-                            rs.getString("observacao"),
-                            toLdt(rs.getTimestamp("criado_em"))
+                            getInt(rs, "id"),
+                            getInt(rs, "produto_id", "product_id"),
+                            getString(rs, "acao", "tipo_acao", "action"),
+                            getInt(rs, "quantidade", "qtd", "quantity"),
+                            getNullableInt(rs, "admin_id", "usuario_admin_id", "user_admin_id"),
+                            getNullableInt(rs, "pedido_id", "order_id"),
+                            getString(rs, "observacao", "obs", "note"),
+                            toLdt(getTimestamp(rs, "criado_em", "created_at", "data_log"))
                     ));
                 }
             }
-        } catch (Exception e) {
-            // vazio em caso de ausência de tabela
         }
         return out;
     }
 
     private java.time.LocalDateTime toLdt(Timestamp t) { return t == null ? null : t.toLocalDateTime(); }
+
+    private int getInt(ResultSet rs, String... names) {
+        for (String n : names) {
+            try { return rs.getInt(n); } catch (Exception ignore) {}
+        }
+        return 0;
+    }
+    private Integer getNullableInt(ResultSet rs, String... names) {
+        for (String n : names) {
+            try { return (Integer) rs.getObject(n); } catch (Exception ignore) {}
+        }
+        return null;
+    }
+    private String getString(ResultSet rs, String... names) {
+        for (String n : names) {
+            try { return rs.getString(n); } catch (Exception ignore) {}
+        }
+        return null;
+    }
+    private Timestamp getTimestamp(ResultSet rs, String... names) {
+        for (String n : names) {
+            try { return rs.getTimestamp(n); } catch (Exception ignore) {}
+        }
+        return null;
+    }
 }

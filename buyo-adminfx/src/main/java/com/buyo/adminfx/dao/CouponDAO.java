@@ -15,28 +15,35 @@ public class CouponDAO {
 
     public List<Coupon> list(String codeLike, Boolean activeOnly) {
         List<Coupon> out = new ArrayList<>();
-        StringBuilder sb = new StringBuilder("SELECT id, codigo, ativo, expira_em, percentual, valor, minimo FROM cupons WHERE 1=1");
-        if (codeLike != null && !codeLike.isBlank()) sb.append(" AND codigo LIKE ?");
-        if (activeOnly != null && activeOnly) sb.append(" AND ativo = 1");
+        StringBuilder sb = new StringBuilder("SELECT c.* FROM cupons c WHERE 1=1");
+        if (codeLike != null && !codeLike.isBlank()) sb.append(" AND (c.codigo LIKE ? OR c.code LIKE ?)");
+        if (activeOnly != null && activeOnly) sb.append(" AND (c.ativo = 1 OR c.active = 1)");
         sb.append(" ORDER BY id DESC");
         try (Connection c = Database.getConnection();
              PreparedStatement ps = c.prepareStatement(sb.toString())) {
             int i = 1;
-            if (codeLike != null && !codeLike.isBlank()) ps.setString(i++, "%" + codeLike.trim() + "%");
+            StringBuilder dbg = new StringBuilder("[CouponDAO] SQL: ").append(sb).append(" | params: ");
+            if (codeLike != null && !codeLike.isBlank()) { 
+                String q = "%" + codeLike.trim() + "%";
+                ps.setString(i++, q); 
+                ps.setString(i++, q);
+                dbg.append("codeLike=").append(codeLike.trim()).append(";"); 
+            }
+            System.out.println(dbg.toString());
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     out.add(new Coupon(
-                            rs.getInt("id"),
-                            rs.getString("codigo"),
-                            rs.getInt("ativo") == 1,
-                            toLocalDate(rs.getDate("expira_em")),
-                            (BigDecimal) rs.getObject("percentual"),
-                            (BigDecimal) rs.getObject("valor"),
-                            (BigDecimal) rs.getObject("minimo")
+                            getInt(rs, "id"),
+                            getString(rs, "codigo", "code"),
+                            getBool(rs, "ativo", "active"),
+                            toLocalDate(getDate(rs, "data_expiracao", "expira_em", "expires_at")),
+                            (BigDecimal) getObject(rs, "desconto_percentual", "percentual", "percent"),
+                            (BigDecimal) getObject(rs, "valor", "amount"),
+                            (BigDecimal) getObject(rs, "minimo", "minimum")
                     ));
                 }
             }
-        } catch (Exception e) { }
+        } catch (Exception e) { e.printStackTrace(); }
         return out;
     }
 
@@ -51,31 +58,64 @@ public class CouponDAO {
             if (amount == null) ps.setNull(5, java.sql.Types.DECIMAL); else ps.setBigDecimal(5, amount);
             if (minimum == null) ps.setNull(6, java.sql.Types.DECIMAL); else ps.setBigDecimal(6, minimum);
             return ps.executeUpdate() > 0;
-        } catch (Exception e) { return false; }
+        } catch (Exception e) { e.printStackTrace(); return false; }
     }
 
     private LocalDate toLocalDate(java.sql.Date d) { return d == null ? null : d.toLocalDate(); }
 
     public Coupon getByCode(String code, boolean onlyValid) {
-        StringBuilder sb = new StringBuilder("SELECT id, codigo, ativo, expira_em, percentual, valor, minimo FROM cupons WHERE codigo = ?");
+        StringBuilder sb = new StringBuilder("SELECT c.* FROM cupons c WHERE (c.codigo = ? OR c.code = ?)");
         if (onlyValid) sb.append(" AND ativo = 1 AND (expira_em IS NULL OR expira_em >= CURRENT_DATE)");
         try (Connection c = Database.getConnection();
              PreparedStatement ps = c.prepareStatement(sb.toString())) {
             ps.setString(1, code);
+            ps.setString(2, code);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return new Coupon(
-                            rs.getInt("id"),
-                            rs.getString("codigo"),
-                            rs.getInt("ativo") == 1,
-                            toLocalDate(rs.getDate("expira_em")),
-                            (BigDecimal) rs.getObject("percentual"),
-                            (BigDecimal) rs.getObject("valor"),
-                            (BigDecimal) rs.getObject("minimo")
+                            getInt(rs, "id"),
+                            getString(rs, "codigo", "code"),
+                            getBool(rs, "ativo", "active"),
+                            toLocalDate(getDate(rs, "data_expiracao", "expira_em", "expires_at")),
+                            (BigDecimal) getObject(rs, "desconto_percentual", "percentual", "percent"),
+                            (BigDecimal) getObject(rs, "valor", "amount"),
+                            (BigDecimal) getObject(rs, "minimo", "minimum")
                     );
                 }
             }
-        } catch (Exception e) { }
+        } catch (Exception e) { e.printStackTrace(); }
+        return null;
+    }
+
+    private int getInt(ResultSet rs, String... names) {
+        for (String n : names) {
+            try { return rs.getInt(n); } catch (Exception ignore) {}
+        }
+        return 0;
+    }
+    private String getString(ResultSet rs, String... names) {
+        for (String n : names) {
+            try { return rs.getString(n); } catch (Exception ignore) {}
+        }
+        return null;
+    }
+    private boolean getBool(ResultSet rs, String... names) {
+        for (String n : names) {
+            try { return rs.getInt(n) == 1; } catch (Exception ignore) {}
+            try { return rs.getBoolean(n); } catch (Exception ignore2) {}
+        }
+        return false;
+    }
+    private java.sql.Date getDate(ResultSet rs, String... names) {
+        for (String n : names) {
+            try { return rs.getDate(n); } catch (Exception ignore) {}
+        }
+        return null;
+    }
+    private Object getObject(ResultSet rs, String... names) {
+        for (String n : names) {
+            try { return rs.getObject(n); } catch (Exception ignore) {}
+        }
         return null;
     }
 }

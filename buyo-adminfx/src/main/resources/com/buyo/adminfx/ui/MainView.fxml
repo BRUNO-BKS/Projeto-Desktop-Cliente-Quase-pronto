@@ -48,6 +48,7 @@
                 </graphic>
                 <items>
                     <MenuItem text="Cadastrar Colaborador" onAction="#onOpenCollaboratorSignup" />
+                    <MenuItem text="altereações dos produtos" onAction="#showProductLogs" />
                 </items>
             </MenuButton>
         </VBox>

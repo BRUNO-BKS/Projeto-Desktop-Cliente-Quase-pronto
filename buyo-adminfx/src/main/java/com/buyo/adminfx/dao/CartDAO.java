@@ -34,7 +34,9 @@ public class CartDAO {
 
     public List<CartItem> listItems(int cartId) {
         List<CartItem> out = new ArrayList<>();
-        String sql = "SELECT id, carrinho_id, produto_id, quantidade, preco FROM carrinho_itens WHERE carrinho_id = ? ORDER BY id";
+        String sql = "SELECT ci.id, ci.carrinho_id, ci.produto_id, ci.quantidade, p.preco AS preco " +
+                     "FROM carrinho_itens ci JOIN produtos p ON p.id = ci.produto_id " +
+                     "WHERE ci.carrinho_id = ? ORDER BY ci.id";
         try (Connection c = Database.getConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setInt(1, cartId);
