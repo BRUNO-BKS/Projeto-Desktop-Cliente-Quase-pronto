@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.buyo.adminfx.ui.controllers.AddressesController">
+    <top>
+        <ToolBar>
+            <Label text="Endereços" />
+            <Separator />
+            <Label text="Usuário ID:" />
+            <TextField fx:id="userIdFilter" promptText="ex: 42" prefWidth="90" />
+            <Button text="Aplicar" onAction="#onApplyFilters" />
+            <Button text="Limpar" onAction="#onClearFilters" />
+            <Button text="Atualizar" onAction="#onRefresh" />
+        </ToolBar>
+    </top>
+    <center>
+        <TableView fx:id="table">
+            <columns>
+                <TableColumn fx:id="colId" text="#" prefWidth="60" />
+                <TableColumn fx:id="colUserId" text="Usuário" prefWidth="80" />
+                <TableColumn fx:id="colStreet" text="Logradouro" prefWidth="160" />
+                <TableColumn fx:id="colNumber" text="Número" prefWidth="80" />
+                <TableColumn fx:id="colCity" text="Cidade" prefWidth="120" />
+                <TableColumn fx:id="colState" text="UF" prefWidth="60" />
+                <TableColumn fx:id="colZip" text="CEP" prefWidth="100" />
+                <TableColumn fx:id="colComplement" text="Compl." prefWidth="120" />
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>

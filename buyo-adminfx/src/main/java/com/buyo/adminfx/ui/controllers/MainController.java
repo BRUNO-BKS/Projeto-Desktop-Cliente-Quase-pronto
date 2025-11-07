@@ -187,6 +187,11 @@ public class MainController {
 
     @FXML
     public void showProductLogs(ActionEvent e) {
+        setCenterView("/com/buyo/adminfx/ui/ProdLogsView.fxml");
+    }
+
+    @FXML
+    public void showProductChanges(ActionEvent e) {
         setCenterView("/com/buyo/adminfx/ui/ProductLogView.fxml");
     }
 

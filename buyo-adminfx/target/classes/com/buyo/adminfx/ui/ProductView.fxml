@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.buyo.adminfx.ui.controllers.ProductController">
+    <top>
+        <ToolBar>
+            <Label text="Produtos" />
+            <Separator />
+            <Button text="Adicionar" onAction="#onAdd" />
+            <Button text="Editar" onAction="#onEdit" />
+            <Button text="Remover" onAction="#onDelete" />
+            <Separator />
+            <Label text="Categoria:" />
+            <ComboBox fx:id="categoryFilter" prefWidth="180" promptText="Todas" />
+        </ToolBar>
+    </top>
+    <center>
+        <TableView fx:id="table">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="60" />
+                <TableColumn fx:id="colName" text="Nome" prefWidth="250" />
+                <TableColumn fx:id="colPrice" text="Preço" prefWidth="120" />
+                <TableColumn fx:id="colStock" text="Estoque" prefWidth="100" />
+                <TableColumn fx:id="colCategory" text="Categoria" prefWidth="160" />
+                <TableColumn fx:id="colImage" text="Imagem" prefWidth="120" />
+                <TableColumn fx:id="colActive" text="Ativo" prefWidth="90" />
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>
+

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+ <BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.buyo.adminfx.ui.controllers.ReviewsController">
+    <top>
+        <ToolBar>
+            <Label text="Avaliações" />
+            <Separator />
+            <Label text="Categoria:" />
+            <ComboBox fx:id="categoryFilter" prefWidth="180" />
+            <Label text="Produto ID:" />
+            <TextField fx:id="productIdFilter" promptText="ex: 10" prefWidth="90" />
+            <Label text="Usuário ID:" />
+            <TextField fx:id="userIdFilter" promptText="ex: 42" prefWidth="90" />
+            <Label text="De:" />
+            <DatePicker fx:id="dateFrom" />
+            <Label text="Até:" />
+            <DatePicker fx:id="dateTo" />
+            <Button text="Aplicar" onAction="#onApplyFilters" />
+            <Button text="Limpar" onAction="#onClearFilters" />
+            <Button text="Atualizar" onAction="#onRefresh" />
+            <Separator />
+            <Button text="Aprovar" onAction="#onApprove" />
+            <Button text="Rejeitar" onAction="#onReject" />
+        </ToolBar>
+    </top>
+    <center>
+        <TableView fx:id="table">
+            <columns>
+                <TableColumn fx:id="colId" text="#" prefWidth="60" />
+                <TableColumn fx:id="colProductId" text="Produto" prefWidth="90" />
+                <TableColumn fx:id="colUserId" text="Usuário" prefWidth="90" />
+                <TableColumn fx:id="colRating" text="Nota" prefWidth="80" />
+                <TableColumn fx:id="colComment" text="Comentário" prefWidth="400" />
+                <TableColumn fx:id="colCreatedAt" text="Criado em" prefWidth="160" />
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>

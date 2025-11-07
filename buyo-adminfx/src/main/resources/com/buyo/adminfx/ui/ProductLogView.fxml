@@ -10,8 +10,6 @@
             <Separator />
             <Label text="Produto ID:" />
             <TextField fx:id="productIdFilter" promptText="ex: 10" prefWidth="80" />
-            <Label text="Pedido ID:" />
-            <TextField fx:id="orderIdFilter" promptText="ex: 123" prefWidth="80" />
             <Label text="De:" />
             <DatePicker fx:id="dateFrom" />
             <Label text="Até:" />
@@ -19,6 +17,9 @@
             <Button text="Aplicar" onAction="#onApplyFilters" />
             <Button text="Limpar" onAction="#onClearFilters" />
             <Button text="Atualizar" onAction="#onRefresh" />
+            <Separator />
+            <Button text="Editar" onAction="#onEdit" />
+            <Button text="Remover" onAction="#onDelete" />
         </ToolBar>
     </top>
     <center>
@@ -26,10 +27,12 @@
             <columns>
                 <TableColumn fx:id="colId" text="#" prefWidth="60" />
                 <TableColumn fx:id="colProductId" text="Produto" prefWidth="90" />
-                <TableColumn fx:id="colAction" text="Ação" prefWidth="120" />
-                <TableColumn fx:id="colAdminId" text="Admin" prefWidth="90" />
-                <TableColumn fx:id="colCreatedAt" text="Criado em" prefWidth="180" />
+                <TableColumn fx:id="colFieldChanged" text="Campo alterado" prefWidth="160" />
+                <TableColumn fx:id="colOldValue" text="Valor antigo" prefWidth="160" />
+                <TableColumn fx:id="colNewValue" text="Valor novo" prefWidth="160" />
+                <TableColumn fx:id="colChangedAt" text="Data alteração" prefWidth="180" />
             </columns>
         </TableView>
     </center>
 </BorderPane>
+

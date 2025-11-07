@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:id="rootPane" fx:controller="com.buyo.adminfx.ui.controllers.MainController">
+    <top>
+        <HBox spacing="10" BorderPane.alignment="CENTER" styleClass="top-bar" style="-fx-background-color: #ffffff; -fx-border-color: #e5e7eb; -fx-border-width: 0 0 1 0;">
+            <padding>
+                <Insets top="10" right="15" bottom="10" left="15" />
+            </padding>
+            <MenuButton fx:id="profileMenu" text="" focusTraversable="false">
+                <graphic>
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+                        <Circle fx:id="avatarCircle" id="avatarCircle" radius="14" styleClass="avatar" />
+                        <Label fx:id="userNameLabel" id="userNameLabel" text="Usuário" />
+                    </HBox>
+                </graphic>
+                <items>
+                    <MenuItem text="Minha conta" onAction="#onProfile" />
+                    <MenuItem text="Sair" onAction="#onLogout" />
+                </items>
+            </MenuButton>
+            <Region HBox.hgrow="ALWAYS" />
+        </HBox>
+    </top>
+    <left>
+        <VBox spacing="10" BorderPane.alignment="CENTER" prefWidth="220" style="-fx-background-color: #f5f5f5;">
+            <padding><Insets top="20" left="15" right="15" bottom="20"/></padding>
+            <Label text="StockRO AdminFX" style="-fx-font-size: 18; -fx-font-weight: bold;" />
+            <Separator />
+            <Button fx:id="btnCustomers" text="Clientes" onAction="#showCustomers" prefWidth="180" />
+            <Button fx:id="btnProducts" text="Produtos" onAction="#showProducts" prefWidth="180" />
+            <Button fx:id="btnOrders" text="Pedidos" onAction="#showOrders" prefWidth="180" />
+            <Button fx:id="btnPayments" text="Pagamentos" onAction="#showPayments" prefWidth="180" />
+            <Button fx:id="btnProdLogs" text="Logs de Produtos" onAction="#showProductLogs" prefWidth="180" />
+            <Button fx:id="btnAddresses" text="Endereços" onAction="#showAddresses" prefWidth="180" />
+            <Button fx:id="btnCoupons" text="Cupons" onAction="#showCoupons" prefWidth="180" />
+            <Button fx:id="btnCarts" text="Carrinhos" onAction="#showCarts" prefWidth="180" />
+            <Button fx:id="btnReviews" text="Avaliações" onAction="#showReviews" prefWidth="180" />
+            <Pane VBox.vgrow="ALWAYS" />
+            <MenuButton text="Configurações" focusTraversable="false" prefWidth="180">
+                <graphic>
+                    <Label text="⚙" />
+                </graphic>
+                <items>
+                    <MenuItem text="Cadastrar Colaborador" onAction="#onOpenCollaboratorSignup" />
+                    <MenuItem text="altereações dos produtos" onAction="#showProductChanges" />
+                </items>
+            </MenuButton>
+        </VBox>
+    </left>
+    <center>
+        <StackPane>
+            <Label text="Selecione uma opção no menu" style="-fx-font-size: 14; -fx-text-fill: #666;" />
+        </StackPane>
+    </center>
+</BorderPane>
+
+

@@ -61,7 +61,7 @@ public class ProductFormController {
             priceField.setText("");
         } else {
             try {
-                NumberFormat nf = NumberFormat.getNumberInstance(new Locale("pt","BR"));
+                NumberFormat nf = NumberFormat.getNumberInstance(Locale.of("pt","BR"));
                 nf.setGroupingUsed(true);
                 nf.setMinimumFractionDigits(2);
                 nf.setMaximumFractionDigits(2);

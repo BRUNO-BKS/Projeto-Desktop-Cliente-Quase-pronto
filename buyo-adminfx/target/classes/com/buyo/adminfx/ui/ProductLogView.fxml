@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.buyo.adminfx.ui.controllers.ProductLogController">
+    <top>
+        <ToolBar>
+            <Label text="Log de Produtos" />
+            <Separator />
+            <Label text="Produto ID:" />
+            <TextField fx:id="productIdFilter" promptText="ex: 10" prefWidth="80" />
+            <Label text="De:" />
+            <DatePicker fx:id="dateFrom" />
+            <Label text="Até:" />
+            <DatePicker fx:id="dateTo" />
+            <Button text="Aplicar" onAction="#onApplyFilters" />
+            <Button text="Limpar" onAction="#onClearFilters" />
+            <Button text="Atualizar" onAction="#onRefresh" />
+            <Separator />
+            <Button text="Editar" onAction="#onEdit" />
+            <Button text="Remover" onAction="#onDelete" />
+        </ToolBar>
+    </top>
+    <center>
+        <TableView fx:id="table">
+            <columns>
+                <TableColumn fx:id="colId" text="#" prefWidth="60" />
+                <TableColumn fx:id="colProductId" text="Produto" prefWidth="90" />
+                <TableColumn fx:id="colFieldChanged" text="Campo alterado" prefWidth="160" />
+                <TableColumn fx:id="colOldValue" text="Valor antigo" prefWidth="160" />
+                <TableColumn fx:id="colNewValue" text="Valor novo" prefWidth="160" />
+                <TableColumn fx:id="colChangedAt" text="Data alteração" prefWidth="180" />
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>
+

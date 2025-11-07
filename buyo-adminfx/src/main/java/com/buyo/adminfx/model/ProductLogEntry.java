@@ -5,30 +5,25 @@ import java.time.LocalDateTime;
 public class ProductLogEntry {
     private final int id;
     private final int productId;
-    private final String action;
-    private final int quantity;
-    private final Integer adminId;
-    private final Integer orderId;
-    private final String note;
-    private final LocalDateTime createdAt;
+    private final String fieldChanged;
+    private final String oldValue;
+    private final String newValue;
+    private final LocalDateTime changedAt;
 
-    public ProductLogEntry(int id, int productId, String action, int quantity, Integer adminId, Integer orderId, String note, LocalDateTime createdAt) {
+    public ProductLogEntry(int id, int productId, String fieldChanged, String oldValue, String newValue, LocalDateTime changedAt) {
         this.id = id;
         this.productId = productId;
-        this.action = action;
-        this.quantity = quantity;
-        this.adminId = adminId;
-        this.orderId = orderId;
-        this.note = note;
-        this.createdAt = createdAt;
+        this.fieldChanged = fieldChanged;
+        this.oldValue = oldValue;
+        this.newValue = newValue;
+        this.changedAt = changedAt;
     }
 
     public int getId() { return id; }
     public int getProductId() { return productId; }
-    public String getAction() { return action; }
-    public int getQuantity() { return quantity; }
-    public Integer getAdminId() { return adminId; }
-    public Integer getOrderId() { return orderId; }
-    public String getNote() { return note; }
-    public LocalDateTime getCreatedAt() { return createdAt; }
+    public String getFieldChanged() { return fieldChanged; }
+    public String getOldValue() { return oldValue; }
+    public String getNewValue() { return newValue; }
+    public LocalDateTime getChangedAt() { return changedAt; }
 }
+

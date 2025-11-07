@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.buyo.adminfx.ui.controllers.CartsController">
+    <top>
+        <ToolBar>
+            <Label text="Carrinhos" />
+            <Separator />
+            <Label text="Usuário ID:" />
+            <TextField fx:id="userIdFilter" promptText="ex: 42" prefWidth="90" />
+            <Button text="Aplicar" onAction="#onApplyFilters" />
+            <Button text="Limpar" onAction="#onClearFilters" />
+            <Button text="Atualizar" onAction="#onRefresh" />
+            <Separator />
+            <Button text="Converter em Pedido" onAction="#onConvertToOrder" />
+        </ToolBar>
+    </top>
+    <center>
+        <SplitPane dividerPositions="0.5">
+            <TableView fx:id="tableCarts">
+                <columns>
+                    <TableColumn fx:id="colCartId" text="#" prefWidth="70" />
+                    <TableColumn fx:id="colUserId" text="Usuário" prefWidth="100" />
+                    <TableColumn fx:id="colCreatedAt" text="Criado em" prefWidth="180" />
+                </columns>
+            </TableView>
+            <TableView fx:id="tableItems">
+                <columns>
+                    <TableColumn fx:id="colItemId" text="#" prefWidth="70" />
+                    <TableColumn fx:id="colProductId" text="Produto" prefWidth="100" />
+                    <TableColumn fx:id="colQuantity" text="Qtd" prefWidth="90" />
+                    <TableColumn fx:id="colPrice" text="Preço" prefWidth="120" />
+                </columns>
+            </TableView>
+        </SplitPane>
+    </center>
+</BorderPane>
