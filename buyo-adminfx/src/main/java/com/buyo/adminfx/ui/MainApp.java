@@ -110,24 +110,14 @@ public class MainApp extends Application {
      * @param root O nó raiz da cena
      */
     private void applyInlineStyles(Parent root) {
-        // Estilos para botões
-        root.lookupAll(".button").forEach(node -> 
-            node.setStyle(
-                "-fx-background-color: #4a6cf7; " +
-                "-fx-text-fill: white; " +
-                "-fx-padding: 8px 16px; " +
-                "-fx-background-radius: 4px;"
-            )
-        );
+        // Removido os estilos inline para botões para permitir que o CSS seja aplicado corretamente
         
-        // Estilos para campos de texto
+        // Estilos para campos de texto (mantendo apenas o necessário)
         root.lookupAll(".text-field, .password-field").forEach(node -> 
             node.setStyle(
-                "-fx-padding: 8px; " +
-                "-fx-font-size: 14px; " +
-                "-fx-background-radius: 4px; " +
-                "-fx-border-color: #dee2e6; " +
-                "-fx-border-radius: 4px;"
+                "-fx-padding: 12px 20px; " +
+                "-fx-background-radius: 12px; " +
+                "-fx-border-radius: 12px;"
             )
         );
         
@@ -137,8 +127,8 @@ public class MainApp extends Application {
             loginContainer.setStyle(
                 "-fx-padding: 40px; " +
                 "-fx-background-color: white; " +
-                "-fx-background-radius: 8px; " +
-                "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);"
+                "-fx-background-radius: 15px; " +
+                "-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 2, 4);"
             );
         }
     }

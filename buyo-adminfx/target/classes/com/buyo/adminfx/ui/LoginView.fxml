@@ -15,26 +15,27 @@
             <!-- Cabeçalho com Logo -->
             <VBox alignment="CENTER" spacing="15">
                 <!-- Logo Circular -->
-                <StackPane styleClass="login-logo">
-                    <Text text="S" styleClass="login-logo-text" />
+                <StackPane style="-fx-background-color: #FF6B35; -fx-background-radius: 50%; -fx-min-width: 80px; -fx-min-height: 80px; -fx-alignment: center;">
+                    <Text text="S" style="-fx-fill: white; -fx-font-size: 48px; -fx-font-weight: bold;" />
                 </StackPane>
                 
                 <!-- Título e Subtítulo -->
                 <VBox alignment="CENTER" spacing="5">
-                    <Text styleClass="login-title">StockRO AdminFX</Text>
-                    <Text styleClass="login-subtitle">Sistema de Gerenciamento</Text>
+                    <Text style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-fill: #e65c00;">StockRO AdminFX</Text>
+                    <Text style="-fx-font-size: 14px; -fx-fill: #999999;">Sistema de Gerenciamento</Text>
                 </VBox>
             </VBox>
             
             <!-- Formulário de Login -->
             <VBox styleClass="login-form" spacing="20">
-                <Text styleClass="login-form-title">Faça login para continuar</Text>
+                <Text style="-fx-font-size: 18px; -fx-font-weight: 600; -fx-fill: #e65c00; -fx-padding: 0 0 10 0;">Faça login para continuar</Text>
                 
                 <VBox spacing="8">
                     <Label text="Email" styleClass="label" />
                     <TextField 
                         fx:id="emailField" 
                         promptText="seu@email.com" 
+                        styleClass="text-field"
                         style="-fx-pref-height: 42;" />
                 </VBox>
                 
@@ -43,16 +44,17 @@
                     <PasswordField 
                         fx:id="passwordField" 
                         promptText="••••••••" 
+                        styleClass="password-field"
                         style="-fx-pref-height: 42;" />
                 </VBox>
                 
-                <CheckBox fx:id="rememberCheck" text="Lembrar-me" styleClass="label" onAction="#onRememberMeAction" />
+                <CheckBox fx:id="rememberCheck" text="Lembrar-me" style="-fx-text-fill: #e65c00;" onAction="#onRememberMeAction" />
                 
                 <Button 
                     text="Entrar" 
                     onAction="#onLogin" 
-                    style="-fx-pref-height: 44;" 
-                    styleClass="button button-primary" 
+                    style="-fx-pref-height: 44; -fx-background-color: #FF6B35; -fx-text-fill: white; -fx-font-weight: bold;" 
+                    styleClass="button" 
                     defaultButton="true" />
                 
                 <Label 

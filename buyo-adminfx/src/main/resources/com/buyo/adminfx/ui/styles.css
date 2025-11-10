@@ -1,6 +1,6 @@
-/* ===== VARIÁVEIS DE CORES - TEMA LARANJA ===== */
+/* Variáveis de cores - Tema Laranja */
 .root {
-    /* Cores principais - Tema laranja */
+    /* Cores principais */
     -primary-color: #FF6B35;
     -primary-hover: #E25A2B;
     -primary-light: #FF8C5A;
@@ -10,103 +10,124 @@
     -warning-color: #F39C12;
     -info-color: #FF6B35;
     
-    /* Cores de fundo - Tema escuro com detalhes em laranja */
+    /* Cores de fundo */
     -bg-primary: #ffffff;
-    -bg-secondary: #ffffff;
-    -bg-tertiary: #1E1E1E;
-    -bg-light: #c9ac9b;
+    -bg-secondary: #f8f9fa;
+    -bg-tertiary: #f0f0f0;
+    -bg-light: #fff3e6;
     -bg-white: #ffffff;
-    -bg-gray: #ffffff;
+    -bg-gray: #f5f5f5;
     
-    /* Cores de texto - Tema laranja */
-    -text-primary: #FF6B35;
-    -text-secondary: #FF8C5A;
-    -text-light: #FFA07A;
-    -text-muted: #8B8B8B;
+    /* Cores de texto */
+    -text-primary: #e65c00;
+    -text-secondary: #ff8533;
+    -text-light: #ffb380;
+    -text-muted: #999999;
     
-    /* Bordas */
-    -border-color: #1b1313;
-    -border-radius: 8px;
-    -border-radius-sm: 4px;
-    -border-radius-lg: 12px;
+    /* Bordas e cantos */
+    -border-color: #e0e0e0;
+    -border-radius: 15px;
+    -border-radius-sm: 12px;
+    -border-radius-lg: 20px;
     
     /* Sombras */
-    -shadow-sm: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);
-    -shadow: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 2);
-    -shadow-lg: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 4);
-    -shadow-primary: dropshadow(three-pass-box, rgba(74, 108, 247, 0.3), 5, 0, 0, 2);
-    
-    /* Espaçamentos */
-    -spacing-xs: 4px;
-    -spacing-sm: 8px;
-    -spacing: 16px;
-    -spacing-lg: 24px;
-    -spacing-xl: 32px;
+    -shadow-sm: dropshadow(three-pass-box, rgba(255, 107, 53, 0.1), 4, 0, 1, 1);
+    -shadow: dropshadow(three-pass-box, rgba(255, 107, 53, 0.2), 8, 0, 2, 2);
+    -shadow-lg: dropshadow(three-pass-box, rgba(255, 107, 53, 0.25), 12, 0, 4, 4);
+    -shadow-primary: dropshadow(three-pass-box, rgba(255, 107, 53, 0.3), 8, 0, 2, 2);
 }
 
-/* ===== ESTILOS GERAIS ===== */
+/* Estilos básicos */
 .root {
     -fx-font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-    -fx-background-color: -bg-primary;
-    -fx-text-fill: -text-primary;
+    -fx-background-color: -bg-gray;
     -fx-font-smoothing-type: lcd;
+    -fx-font-size: 14px;
 }
 
-/* ===== ESTILOS DO LOGIN ===== */
+/* Estilo para botões */
+.button {
+    -fx-background-color: -primary-color;
+    -fx-text-fill: white;
+    -fx-font-weight: 600;
+    -fx-font-size: 15px;
+    -fx-padding: 12px 32px;
+    -fx-background-radius: 25px;
+    -fx-cursor: hand;
+    -fx-min-width: 200px;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 107, 53, 0.3), 5, 0, 0, 2);
+    -fx-transition: all 0.2s;
+}
+
+.button:hover {
+    -fx-background-color: -primary-hover;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 107, 53, 0.4), 8, 0, 0, 3);
+    -fx-translate-y: -1px;
+}
+
+/* Campos de texto */
+.text-field, .password-field, .combo-box {
+    -fx-background-color: white;
+    -fx-text-fill: -text-primary;
+    -fx-prompt-text-fill: #999999;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-padding: 12px 20px;
+    -fx-font-size: 15px;
+    -fx-effect: -shadow-sm;
+}
+
+.text-field:focused, .password-field:focused, .combo-box:focused {
+    -fx-border-color: -primary-color;
+    -fx-effect: -shadow-primary;
+    -fx-background-color: white;
+}
+
+/* Container de login */
 .login-container {
-    -fx-background-color: -bg-secondary;
+    -fx-background-color: -bg-white;
     -fx-background-radius: -border-radius;
-    -fx-padding: -spacing-xl;
+    -fx-padding: 40px;
+    -fx-spacing: 24px;
     -fx-effect: -shadow-lg;
     -fx-min-width: 400px;
     -fx-max-width: 500px;
-    -fx-border-color: -border-color;
-    -fx-border-width: 1px;
     -fx-alignment: center;
-}
-
-.login-logo {
-    -fx-background-color: -primary-color;
-    -fx-background-radius: 50%;
-    -fx-min-width: 100px;
-    -fx-min-height: 100px;
-    -fx-alignment: center;
-    -fx-effect: dropshadow(three-pass-box, rgba(74, 108, 247, 0.5), 10, 0, 0, 3);
-}
-
-.login-logo-text {
-    -fx-fill: white;
-    -fx-font-size: 42px;
-    -fx-font-weight: bold;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 3, 0, 0, 1);
-}
-
-.login-title {
-    -fx-font-size: 28px;
-    -fx-font-weight: bold;
-    -fx-fill: -text-primary;
-    -fx-padding: 10px 0;
-    -fx-text-alignment: center;
-}
-
-.login-subtitle {
-    -fx-font-size: 0px; /* Removendo o subtítulo */
-    -fx-padding: 0;
-    -fx-margin: 0;
-    visibility: hidden;
 }
 
 .login-form {
-    -fx-spacing: 20px;
+    -fx-spacing: 24px;
     -fx-padding: 20px 0;
     -fx-min-width: 100%;
     -fx-alignment: center;
 }
 
+/* Estilo para a logo "S" */
+.logo-text {
+    -fx-font-size: 48px;
+    -fx-font-weight: 800;
+    -fx-fill: -primary-color;
+    -fx-effect: dropshadow(three-pass-box, rgba(255, 107, 53, 0.2), 5, 0, 0, 2);
+}
+
+/* Estilo para o título */
 .login-form-title {
-    -fx-font-size: 18px;
-    -fx-font-weight: 500;
-    -fx-fill: -text-primary;
+    -fx-font-size: 28px;
+    -fx-font-weight: 700;
+    -fx-text-fill: -text-primary;
+    -fx-padding: 5px 0;
+    -fx-text-alignment: center;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.05), 2, 0, 0, 1);
+}
+
+/* Estilo para o subtítulo */
+.login-subtitle {
+    -fx-font-size: 16px;
+    -fx-text-fill: -text-muted;
+    -fx-padding: 5px 0 20px 0;
+    -fx-text-alignment: center;
 }
 
 .label {
