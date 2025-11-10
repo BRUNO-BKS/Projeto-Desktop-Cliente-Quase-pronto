@@ -1,7 +1,7 @@
 /* ===== VARIÁVEIS DE CORES ===== */
 .root {
     /* Cores principais */
-    -primary-color: #4a6cf7;
+    -primary-color: #FF6B35;
     -primary-hover: #3a5bd9;
     -primary-light: #eef2ff;
     -secondary-color: #6c757d;
@@ -24,16 +24,16 @@
     -bg-gray: #f5f7fa;
     
     /* Bordas */
-    -border-color: #dee2e6;
-    -border-radius: 8px;
-    -border-radius-sm: 4px;
-    -border-radius-lg: 12px;
+    -border-color: #e9ecef;
+    -border-radius: 10px;
+    -border-radius-sm: 6px;
+    -border-radius-lg: 16px;
     
     /* Sombras */
-    -shadow-sm: dropshadow(three-pass-box, rgba(0,0,0,0.05), 3, 0, 0, 1);
-    -shadow: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
-    -shadow-lg: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 4);
-    -shadow-primary: dropshadow(three-pass-box, rgba(74, 108, 247, 0.3), 5, 0, 0, 2);
+    -shadow-sm: dropshadow(three-pass-box, rgba(0,0,0,0.05), 4, 0, 1, 1);
+    -shadow: dropshadow(three-pass-box, rgba(0,0,0,0.1), 8, 0, 2, 2);
+    -shadow-lg: dropshadow(three-pass-box, rgba(0,0,0,0.15), 12, 0, 4, 4);
+    -shadow-primary: dropshadow(three-pass-box, rgba(255, 107, 53, 0.25), 8, 0, 2, 2);
     
     /* Espaçamentos */
     -spacing-xs: 4px;
@@ -46,9 +46,75 @@
 /* ===== ESTILOS GERAIS ===== */
 .root {
     -fx-font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
-    -fx-background-color: -bg-gray;
+    -fx-background-color: #f8f9fa;
     -fx-font-smoothing-type: lcd;
     -fx-font-size: 14px;
+}
+
+/* Efeito de transição suave para botões */
+.button {
+    -fx-cursor: hand;
+    -fx-background-radius: -border-radius;
+    -fx-padding: 8px 16px;
+    -fx-effect: -shadow-sm;
+    -fx-transition: all 0.2s;
+}
+
+.button:hover {
+    -fx-effect: -shadow;
+    -fx-translate-y: -1px;
+}
+
+.button:armed {
+    -fx-translate-y: 1px;
+    -fx-effect: -shadow-sm;
+}
+
+/* Estilo para cards */
+.card {
+    -fx-background-color: -bg-white;
+    -fx-background-radius: -border-radius;
+    -fx-effect: -shadow-sm;
+    -fx-padding: 16px;
+    -fx-transition: all 0.2s;
+}
+
+.card:hover {
+    -fx-effect: -shadow;
+    -fx-translate-y: -2px;
+}
+
+/* Campos de entrada estilizados */
+.text-field, .password-field, .combo-box {
+    -fx-background-radius: -border-radius-sm;
+    -fx-border-radius: -border-radius-sm;
+    -fx-padding: 8px 12px;
+    -fx-border-color: -border-color;
+    -fx-border-width: 1px;
+    -fx-effect: -shadow-sm;
+}
+
+.text-field:focused, .password-field:focused, .combo-box:focused {
+    -fx-border-color: -primary-color;
+    -fx-effect: -shadow-primary;
+}
+
+/* Estilo para abas */
+.tab-pane {
+    -fx-tab-min-width: 120px;
+    -fx-tab-max-width: 200px;
+    -fx-tab-min-height: 40px;
+}
+
+.tab {
+    -fx-background-radius: -border-radius -border-radius 0 0;
+    -fx-padding: 8px 16px;
+}
+
+.tab:selected {
+    -fx-background-color: -primary-color;
+    -fx-text-fill: white;
+    -fx-effect: -shadow-sm;
 }
 
 /* ===== ESTILOS DA TELA DE LOGIN ===== */
@@ -56,18 +122,29 @@
     -fx-background-color: -bg-white;
     -fx-background-radius: -border-radius-lg;
     -fx-effect: -shadow-lg;
-    -fx-padding: -spacing-xl;
-    -fx-spacing: -spacing;
-    -fx-max-width: 420px;
+    -fx-padding: 40px;
+    -fx-spacing: 24px;
+    -fx-max-width: 400px;
     -fx-alignment: center;
+    -fx-border-radius: -border-radius-lg;
+    -fx-border-color: rgba(0,0,0,0.05);
+    -fx-border-width: 1px;
 }
 
 .login-logo {
     -fx-background-color: -primary-color;
-    -fx-background-radius: 50%;
-    -fx-min-width: 80px;
-    -fx-min-height: 80px;
+    -fx-background-radius: 24px;
+    -fx-min-width: 100px;
+    -fx-min-height: 100px;
     -fx-alignment: center;
+    -fx-effect: dropshadow(three-pass-box, rgba(255,107,53,0.3), 8, 0, 0, 4);
+    -fx-transition: all 0.3s;
+}
+
+.login-logo:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(three-pass-box, rgba(255,107,53,0.4), 12, 0, 0, 6);
 }
 
 .login-logo-text {
@@ -89,10 +166,13 @@
 
 .login-form {
     -fx-background-color: -bg-white;
-    -fx-padding: -spacing-xl;
-    -fx-spacing: -spacing;
+    -fx-padding: 24px;
+    -fx-spacing: 20px;
     -fx-background-radius: -border-radius;
     -fx-effect: -shadow;
+    -fx-border-radius: -border-radius;
+    -fx-border-color: rgba(0,0,0,0.05);
+    -fx-border-width: 1px;
 }
 
 .login-form-title {

@@ -1,31 +1,31 @@
-/* ===== VARIÁVEIS DE CORES ===== */
+/* ===== VARIÁVEIS DE CORES - TEMA LARANJA ===== */
 .root {
-    /* Cores principais - Tema escuro */
-    -primary-color: #4a6cf7;
-    -primary-hover: #3a5bd9;
-    -primary-light: #666847;
-    -secondary-color: #ac9a4e;
-    -success-color: #28a745;
-    -danger-color: #dc3545;
-    -warning-color: #ffc107;
-    -info-color: #17a2b8;
+    /* Cores principais - Tema laranja */
+    -primary-color: #FF6B35;
+    -primary-hover: #E25A2B;
+    -primary-light: #FF8C5A;
+    -secondary-color: #FF9F1C;
+    -success-color: #2ECC71;
+    -danger-color: #E74C3C;
+    -warning-color: #F39C12;
+    -info-color: #FF6B35;
     
-    /* Cores de fundo - Tema escuro mais escuro */
-    -bg-primary: #0f0f1a;
-    -bg-secondary: #0e1525;
-    -bg-tertiary: #0a0e1a;
-    -bg-light: #1a1a2e;
-    -bg-white: #141428;
-    -bg-gray: #1a1a2e;
+    /* Cores de fundo - Tema escuro com detalhes em laranja */
+    -bg-primary: #ffffff;
+    -bg-secondary: #ffffff;
+    -bg-tertiary: #1E1E1E;
+    -bg-light: #c9ac9b;
+    -bg-white: #ffffff;
+    -bg-gray: #ffffff;
     
-    /* Cores de texto - Tema escuro */
-    -text-primary: #0e4c8a;
-    -text-secondary: #053361;
-    -text-light: #033669;
-    -text-muted: #6d7a86;
+    /* Cores de texto - Tema laranja */
+    -text-primary: #FF6B35;
+    -text-secondary: #FF8C5A;
+    -text-light: #FFA07A;
+    -text-muted: #8B8B8B;
     
     /* Bordas */
-    -border-color: #2d3748;
+    -border-color: #1b1313;
     -border-radius: 8px;
     -border-radius-sm: 4px;
     -border-radius-lg: 12px;
