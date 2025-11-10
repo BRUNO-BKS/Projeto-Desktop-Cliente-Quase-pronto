@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.geometry.Insets?>
+
+<StackPane fx:id="splashRoot" stylesheets="@../css/splash.css" xmlns="http://javafx.com/javafx/17.0.2"
+           xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.buyo.adminfx.ui.controllers.SplashController">
+    <VBox alignment="CENTER" spacing="20">
+        <ImageView fitWidth="200" fitHeight="200" preserveRatio="true">
+            <image>
+                <Image url="@../images/logo.png" />
+            </image>
+        </ImageView>
+        
+        <Text styleClass="splash-title" text="StockRO AdminFX" />
+        <Text styleClass="splash-subtitle" text="Carregando sistema..." />
+        
+        <ProgressBar fx:id="progressBar" prefWidth="300" progress="0" />
+        
+        <Text fx:id="statusText" styleClass="status-text" text="Inicializando..." />
+    </VBox>
+</StackPane>

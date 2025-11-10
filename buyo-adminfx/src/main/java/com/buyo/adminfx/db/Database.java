@@ -15,10 +15,12 @@ public class Database {
 
     public static Connection getConnection() throws SQLException {
         if (connection != null && !connection.isClosed()) {
+            System.out.println("Retornando conexão existente");
             return connection;
         }
         try {
             Properties props = new Properties();
+            System.out.println("Tentando carregar configurações do banco de dados...");
             // Tenta carregar do classpath primeiro
             try (InputStream in = Database.class.getClassLoader().getResourceAsStream("db.properties")) {
                 if (in != null) {
@@ -54,8 +56,13 @@ public class Database {
             }
             String url = props.getProperty("db.url");
             String user = props.getProperty("db.user");
-            String pass = props.getProperty("db.password");
-            connection = DriverManager.getConnection(url, user, pass);
+            String password = props.getProperty("db.password");
+            
+            System.out.println("Conectando ao banco de dados...");
+            System.out.println("URL: " + url);
+            System.out.println("Usuário: " + user);
+            connection = DriverManager.getConnection(url, user, password);
+            System.out.println("Conexão com o banco de dados estabelecida com sucesso!");
             return connection;
         } catch (Exception e) {
             throw new SQLException("Falha ao conectar ao banco: " + e.getMessage(), e);

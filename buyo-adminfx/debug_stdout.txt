@@ -1,0 +1,1 @@
+[CouponDAO] SQL: SELECT c.* FROM cupons c WHERE 1=1 ORDER BY id DESC | params: 

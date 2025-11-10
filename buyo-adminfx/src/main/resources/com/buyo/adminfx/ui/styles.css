@@ -1,30 +1,207 @@
-/* Top bar styling */
-.top-bar {
-  -fx-background-color: #ffffff;
-  -fx-padding: 10 15;
+/* ===== VARIÁVEIS DE CORES ===== */
+.root {
+    /* Cores principais - Tema escuro */
+    -primary-color: #4a6cf7;
+    -primary-hover: #3a5bd9;
+    -primary-light: #666847;
+    -secondary-color: #ac9a4e;
+    -success-color: #28a745;
+    -danger-color: #dc3545;
+    -warning-color: #ffc107;
+    -info-color: #17a2b8;
+    
+    /* Cores de fundo - Tema escuro mais escuro */
+    -bg-primary: #0f0f1a;
+    -bg-secondary: #0e1525;
+    -bg-tertiary: #0a0e1a;
+    -bg-light: #1a1a2e;
+    -bg-white: #141428;
+    -bg-gray: #1a1a2e;
+    
+    /* Cores de texto - Tema escuro */
+    -text-primary: #0e4c8a;
+    -text-secondary: #053361;
+    -text-light: #033669;
+    -text-muted: #6d7a86;
+    
+    /* Bordas */
+    -border-color: #2d3748;
+    -border-radius: 8px;
+    -border-radius-sm: 4px;
+    -border-radius-lg: 12px;
+    
+    /* Sombras */
+    -shadow-sm: dropshadow(three-pass-box, rgba(0,0,0,0.2), 3, 0, 0, 1);
+    -shadow: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 2);
+    -shadow-lg: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 4);
+    -shadow-primary: dropshadow(three-pass-box, rgba(74, 108, 247, 0.3), 5, 0, 0, 2);
+    
+    /* Espaçamentos */
+    -spacing-xs: 4px;
+    -spacing-sm: 8px;
+    -spacing: 16px;
+    -spacing-lg: 24px;
+    -spacing-xl: 32px;
 }
 
-/* Search field */
-.text-field {
-  -fx-background-radius: 6;
-  -fx-border-radius: 6;
+/* ===== ESTILOS GERAIS ===== */
+.root {
+    -fx-font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    -fx-background-color: -bg-primary;
+    -fx-text-fill: -text-primary;
+    -fx-font-smoothing-type: lcd;
 }
 
-/* Avatar circle */
-.avatar {
-  -fx-fill: linear-gradient(to bottom right, #4f46e5, #06b6d4);
+/* ===== ESTILOS DO LOGIN ===== */
+.login-container {
+    -fx-background-color: -bg-secondary;
+    -fx-background-radius: -border-radius;
+    -fx-padding: -spacing-xl;
+    -fx-effect: -shadow-lg;
+    -fx-min-width: 400px;
+    -fx-max-width: 500px;
+    -fx-border-color: -border-color;
+    -fx-border-width: 1px;
+    -fx-alignment: center;
 }
 
-/* Profile menu */
-.menu-button {
-  -fx-background-radius: 8;
+.login-logo {
+    -fx-background-color: -primary-color;
+    -fx-background-radius: 50%;
+    -fx-min-width: 100px;
+    -fx-min-height: 100px;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 108, 247, 0.5), 10, 0, 0, 3);
 }
 
-/* Table styling */
-.table-view {
-  -fx-table-cell-border-color: #e5e7eb;
-  -fx-border-color: #e5e7eb;
+.login-logo-text {
+    -fx-fill: white;
+    -fx-font-size: 42px;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 3, 0, 0, 1);
 }
-.table-view .column-header-background {
-  -fx-background-color: #f3f4f6;
+
+.login-title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-fill: -text-primary;
+    -fx-padding: 10px 0;
+    -fx-text-alignment: center;
+}
+
+.login-subtitle {
+    -fx-font-size: 0px; /* Removendo o subtítulo */
+    -fx-padding: 0;
+    -fx-margin: 0;
+    visibility: hidden;
+}
+
+.login-form {
+    -fx-spacing: 20px;
+    -fx-padding: 20px 0;
+    -fx-min-width: 100%;
+    -fx-alignment: center;
+}
+
+.login-form-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: 500;
+    -fx-fill: -text-primary;
+}
+
+.label {
+    -fx-text-fill: -text-primary;
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+}
+
+.text-field, .password-field {
+    -fx-background-color: -bg-tertiary;
+    -fx-text-fill: -text-primary;
+    -fx-prompt-text-fill: -text-muted;
+    -fx-border-color: -border-color;
+    -fx-border-radius: -border-radius-sm;
+    -fx-background-radius: -border-radius-sm;
+    -fx-padding: 12px;
+    -fx-font-size: 14px;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: -primary-color;
+    -fx-effect: -shadow-primary;
+}
+
+.button {
+    -fx-background-color: -primary-color;
+    -fx-text-fill: white;
+    -fx-font-weight: 500;
+    -fx-font-size: 15px;
+    -fx-padding: 14px 32px;
+    -fx-background-radius: -border-radius-sm;
+    -fx-cursor: hand;
+    -fx-min-width: 200px;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 108, 247, 0.3), 5, 0, 0, 2);
+}
+
+.button:hover {
+    -fx-background-color: -primary-hover;
+}
+
+.button:disabled {
+    -fx-opacity: 0.7;
+    -fx-cursor: not-allowed;
+}
+
+.check-box {
+    -fx-text-fill: -text-primary;
+    -fx-font-size: 14px;
+}
+
+.check-box .box {
+    -fx-background-color: -bg-tertiary;
+    -fx-border-color: -border-color;
+    -fx-border-radius: 4px;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: -primary-color;
+}
+
+.error-message {
+    -fx-text-fill: -danger-color;
+    -fx-font-size: 13px;
+    -fx-padding: 10px 0;
+    -fx-text-alignment: center;
+}
+
+#rememberCheck .box {
+    -fx-background-color: -bg-tertiary;
+    -fx-border-color: -border-color;
+    -fx-border-radius: 4px;
+}
+
+#rememberCheck:selected .mark {
+    -fx-background-color: -primary-color;
+}
+
+/* Efeito de hover para o CheckBox */
+#rememberCheck:hover .box {
+    -fx-effect: -shadow-sm;
+}
+
+/* Efeito de foco para o CheckBox */
+#rememberCheck:focused .box {
+    -fx-effect: -shadow-primary;
+}
+
+/* Estilo para o texto do CheckBox */
+#rememberCheck .text {
+    -fx-fill: -text-primary;
+    -fx-font-size: 14px;
+}
+
+/* Estilo para o CheckBox quando desabilitado */
+#rememberCheck:disabled {
+    -fx-opacity: 0.7;
 }

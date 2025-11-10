@@ -26,22 +26,62 @@ public class CustomerController implements SearchableController {
 
     @FXML
     public void initialize() {
-        colId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        colName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
-        colPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
-        if (colCreatedAt != null) {
-            colCreatedAt.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
-        }
-        if (colLastActive != null) {
-            colLastActive.setCellValueFactory(new PropertyValueFactory<>("lastActive"));
-        }
+        System.out.println("\n=== Inicializando CustomerController ===");
+        System.out.println("table é nulo? " + (table == null ? "SIM" : "não"));
+        System.out.println("searchField é nulo? " + (searchField == null ? "SIM" : "não"));
+        
+        try {
+            System.out.println("Configurando colunas da tabela...");
+            colId.setCellValueFactory(new PropertyValueFactory<>("id"));
+            colName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            colEmail.setCellValueFactory(new PropertyValueFactory<>("email"));
+            colPhone.setCellValueFactory(new PropertyValueFactory<>("phone"));
+            
+            if (colCreatedAt != null) {
+                colCreatedAt.setCellValueFactory(new PropertyValueFactory<>("createdAt"));
+                System.out.println("Coluna 'Criado em' configurada");
+            } else {
+                System.err.println("AVISO: colCreatedAt é nulo");
+            }
+            
+            if (colLastActive != null) {
+                colLastActive.setCellValueFactory(new PropertyValueFactory<>("lastActive"));
+                System.out.println("Coluna 'Último ativo' configurada");
+            } else {
+                System.err.println("AVISO: colLastActive é nulo");
+            }
 
-        masterData = FXCollections.observableArrayList(new CustomerDAO().listAll());
-        filtered = new FilteredList<>(masterData, c -> true);
-        table.setItems(filtered);
-        if (searchField != null) {
-            searchField.textProperty().addListener((obs, ov, nv) -> applySearch(nv));
+            System.out.println("Carregando dados dos clientes...");
+            try {
+                CustomerDAO dao = new CustomerDAO();
+                System.out.println("DAO inicializado, buscando clientes...");
+                masterData = FXCollections.observableArrayList(dao.listAll());
+                System.out.println("Total de clientes carregados: " + masterData.size());
+                
+                filtered = new FilteredList<>(masterData, c -> true);
+                System.out.println("Filtro aplicado");
+                
+                if (table != null) {
+                    table.setItems(filtered);
+                    System.out.println("Itens definidos na tabela");
+                } else {
+                    System.err.println("ERRO: table é nulo, não é possível definir os itens");
+                }
+                
+                if (searchField != null) {
+                    searchField.textProperty().addListener((obs, ov, nv) -> applySearch(nv));
+                    System.out.println("Listener de pesquisa configurado");
+                } else {
+                    System.err.println("AVISO: searchField é nulo, não foi possível configurar o listener de pesquisa");
+                }
+                
+            } catch (Exception e) {
+                System.err.println("ERRO ao carregar clientes: " + e.getMessage());
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            System.err.println("ERRO na inicialização do CustomerController: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

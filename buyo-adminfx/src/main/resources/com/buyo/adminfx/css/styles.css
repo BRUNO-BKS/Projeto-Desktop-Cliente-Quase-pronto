@@ -1,0 +1,287 @@
+/* ===== VARIÁVEIS DE CORES ===== */
+.root {
+    /* Cores principais */
+    -primary-color: #4a6cf7;
+    -primary-hover: #3a5bd9;
+    -primary-light: #eef2ff;
+    -secondary-color: #6c757d;
+    -success-color: #28a745;
+    -danger-color: #dc3545;
+    -warning-color: #ffc107;
+    -info-color: #17a2b8;
+    -light-color: #f8f9fa;
+    -dark-color: #343a40;
+    
+    /* Cores de texto */
+    -text-primary: #2c3e50;
+    -text-secondary: #6c757d;
+    -text-light: #f8f9fa;
+    -text-muted: #adb5bd;
+    
+    /* Cores de fundo */
+    -bg-light: #f8f9fa;
+    -bg-white: #ffffff;
+    -bg-gray: #f5f7fa;
+    
+    /* Bordas */
+    -border-color: #dee2e6;
+    -border-radius: 8px;
+    -border-radius-sm: 4px;
+    -border-radius-lg: 12px;
+    
+    /* Sombras */
+    -shadow-sm: dropshadow(three-pass-box, rgba(0,0,0,0.05), 3, 0, 0, 1);
+    -shadow: dropshadow(three-pass-box, rgba(0,0,0,0.1), 5, 0, 0, 2);
+    -shadow-lg: dropshadow(three-pass-box, rgba(0,0,0,0.15), 10, 0, 0, 4);
+    -shadow-primary: dropshadow(three-pass-box, rgba(74, 108, 247, 0.3), 5, 0, 0, 2);
+    
+    /* Espaçamentos */
+    -spacing-xs: 4px;
+    -spacing-sm: 8px;
+    -spacing: 16px;
+    -spacing-lg: 24px;
+    -spacing-xl: 32px;
+}
+
+/* ===== ESTILOS GERAIS ===== */
+.root {
+    -fx-font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    -fx-background-color: -bg-gray;
+    -fx-font-smoothing-type: lcd;
+    -fx-font-size: 14px;
+}
+
+/* ===== ESTILOS DA TELA DE LOGIN ===== */
+.login-container {
+    -fx-background-color: -bg-white;
+    -fx-background-radius: -border-radius-lg;
+    -fx-effect: -shadow-lg;
+    -fx-padding: -spacing-xl;
+    -fx-spacing: -spacing;
+    -fx-max-width: 420px;
+    -fx-alignment: center;
+}
+
+.login-logo {
+    -fx-background-color: -primary-color;
+    -fx-background-radius: 50%;
+    -fx-min-width: 80px;
+    -fx-min-height: 80px;
+    -fx-alignment: center;
+}
+
+.login-logo-text {
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+    -fx-fill: -text-light;
+}
+
+.login-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: 700;
+    -fx-text-fill: -text-primary;
+}
+
+.login-subtitle {
+    -fx-font-size: 16px;
+    -fx-text-fill: -text-secondary;
+}
+
+.login-form {
+    -fx-background-color: -bg-white;
+    -fx-padding: -spacing-xl;
+    -fx-spacing: -spacing;
+    -fx-background-radius: -border-radius;
+    -fx-effect: -shadow;
+}
+
+.login-form-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: 600;
+    -fx-text-fill: -text-secondary;
+    -fx-padding: 0 0 -spacing 0;
+}
+
+/* ===== BOTÕES ===== */
+.button {
+    -fx-background-color: -primary-color;
+    -fx-text-fill: -text-light;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: -border-radius-sm;
+    -fx-cursor: hand;
+    -fx-font-weight: 600;
+    -fx-font-size: 14px;
+    -fx-effect: -shadow-sm;
+    -fx-transition: all 0.2s;
+}
+
+.button:hover {
+    -fx-background-color: -primary-hover;
+    -fx-effect: -shadow;
+    -fx-translate-y: -1px;
+}
+
+.button:disabled {
+    -fx-opacity: 0.7;
+    -fx-cursor: not-allowed;
+    -fx-effect: none;
+}
+
+.button-primary {
+    -fx-background-color: -primary-color;
+    -fx-text-fill: white;
+}
+
+.button-primary:hover {
+    -fx-background-color: -primary-hover;
+}
+
+.button-secondary {
+    -fx-background-color: -secondary-color;
+    -fx-text-fill: white;
+}
+
+.button-secondary:hover {
+    -fx-background-color: #5a6268;
+}
+
+/* ===== CAMPOS DE TEXTO ===== */
+.text-field, .password-field, .combo-box, .text-area {
+    -fx-padding: 10px 15px;
+    -fx-background-radius: -border-radius-sm;
+    -fx-border-color: -border-color;
+    -fx-border-radius: -border-radius-sm;
+    -fx-border-width: 1.5px;
+    -fx-background-color: -bg-light;
+    -fx-font-size: 14px;
+    -fx-prompt-text-fill: -text-muted;
+    -fx-effect: -shadow-sm;
+    -fx-highlight-fill: -primary-light;
+    -fx-highlight-text-fill: -text-primary;
+}
+
+.text-field:focused, .password-field:focused, 
+.combo-box:focused, .text-area:focused {
+    -fx-border-color: -primary-color;
+    -fx-effect: -shadow-primary;
+    -fx-background-color: -bg-white;
+}
+
+/* ===== LABELS ===== */
+.label {
+    -fx-text-fill: -text-primary;
+    -fx-font-weight: 500;
+}
+
+.label-required:after {
+    -fx-text-fill: -danger-color;
+    -fx-content: " *";
+}
+
+/* ===== TÍTULOS ===== */
+.title {
+    -fx-font-size: 24px;
+    -fx-font-weight: 700;
+    -fx-text-fill: -text-primary;
+}
+
+.subtitle {
+    -fx-font-size: 16px;
+    -fx-text-fill: -text-secondary;
+}
+
+/* Table styles */
+.table-view {
+    -fx-background-color: white;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: #dee2e6;
+    -fx-border-width: 1px;
+}
+
+.table-view .column-header {
+    -fx-background-color: #f8f9fa;
+    -fx-padding: 12px 15px;
+}
+
+.table-view .table-cell {
+    -fx-padding: 12px 15px;
+    -fx-border-color: #dee2e6;
+    -fx-border-width: 0 0 1px 0;
+}
+
+/* Error message */
+.error-message {
+    -fx-text-fill: #dc3545;
+    -fx-font-size: 13px;
+    -fx-padding: 5px 0;
+}
+
+/* Success message */
+.success-message {
+    -fx-text-fill: #28a745;
+    -fx-font-size: 13px;
+    -fx-padding: 5px 0;
+}
+
+/* Avatar circle */
+.avatar {
+    -fx-fill: #4a6cf7;
+    -fx-stroke: white;
+    -fx-stroke-width: 2px;
+}
+
+/* Tabs */
+.tab-pane {
+    -fx-background-color: transparent;
+    -fx-tab-min-width: 120px;
+}
+
+.tab {
+    -fx-background-color: #e9ecef;
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+}
+
+.tab:selected {
+    -fx-background-color: #4a6cf7;
+    -fx-text-fill: white;
+}
+
+.tab:selected .tab-label {
+    -fx-text-fill: white;
+}
+
+/* Scrollbar */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: #f1f3f5;
+    -fx-border-color: transparent;
+    -fx-background-radius: 2em;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #adb5bd;
+    -fx-background-radius: 2em;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #6c757d;
+}
+
+/* Progress indicator */
+.progress-indicator {
+    -fx-progress-color: #4a6cf7;
+}
+
+/* Tooltip */
+.tooltip {
+    -fx-background-color: #2c3e50;
+    -fx-text-fill: white;
+    -fx-padding: 8px 12px;
+    -fx-background-radius: 4px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);
+}

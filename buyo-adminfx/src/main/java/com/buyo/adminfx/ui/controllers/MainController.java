@@ -42,11 +42,17 @@ public class MainController {
 
     @FXML
     public void initialize() {
+        System.out.println("\n=== Inicializando MainController ===");
+        System.out.println("rootPane é nulo? " + (rootPane == null ? "SIM" : "não"));
+        System.out.println("userNameLabel é nulo? " + (userNameLabel == null ? "SIM" : "não"));
+        
         lastInstance = this;
         if (userNameLabel != null) {
             if (Session.getCurrentUser() != null) {
+                System.out.println("Usuário atual: " + Session.getCurrentUser().getName());
                 userNameLabel.setText(Session.getCurrentUser().getName());
             } else if (userNameLabel.getText() == null || userNameLabel.getText().isBlank()) {
+                System.out.println("Nenhum usuário na sessão, definindo como 'Admin'");
                 userNameLabel.setText("Admin");
             }
         }
@@ -161,7 +167,12 @@ public class MainController {
     }
 
     public static void goToDefaultList() {
-        if (lastInstance == null) return;
+        System.out.println("Método goToDefaultList() chamado");
+        if (lastInstance == null) {
+            System.err.println("Erro: lastInstance é nulo em goToDefaultList()");
+            return;
+        }
+        System.out.println("Chamando setCenterView para CustomerView.fxml");
         lastInstance.setCenterView("/com/buyo/adminfx/ui/CustomerView.fxml");
     }
 
@@ -329,35 +340,90 @@ public class MainController {
     }
 
     private void setCenterView(String fxmlPath) {
+        System.out.println("\n=== setCenterView() chamado com: " + fxmlPath + " ===");
+        System.out.println("rootPane é nulo? " + (rootPane == null ? "SIM" : "não"));
+        
         try {
+            // Tenta carregar o recurso do classpath
             URL fxml = getClass().getResource(fxmlPath);
+            System.out.println("URL do recurso (classpath): " + fxml);
+            
+            // Se não encontrou no classpath, tenta encontrar no sistema de arquivos
             if (fxml == null) {
+                System.err.println("Arquivo FXML não encontrado no classpath: " + fxmlPath);
                 String userDir = System.getProperty("user.dir");
+                System.out.println("Diretório atual: " + userDir);
+                
                 // fxmlPath sempre começa com '/'
                 String[] segs = fxmlPath.replaceFirst("^/", "").split("/");
+                if (segs.length < 5) {
+                    System.err.println("Caminho FXML inválido. Esperado pelo menos 5 segmentos: " + fxmlPath);
+                    return;
+                }
+                
                 Path p1 = Paths.get(userDir, "buyo-adminfx", "src", "main", "resources", segs[0], segs[1], segs[2], segs[3], segs[4]);
                 Path p2 = Paths.get(userDir, "src", "main", "resources", segs[0], segs[1], segs[2], segs[3], segs[4]);
+                
+                System.out.println("Procurando arquivo em: " + p1);
+                System.out.println("Procurando arquivo em: " + p2);
+                
                 Path existing = Files.exists(p1) ? p1 : (Files.exists(p2) ? p2 : null);
                 if (existing != null) {
+                    System.out.println("Arquivo encontrado em: " + existing);
                     fxml = existing.toUri().toURL();
+                    System.out.println("Nova URL do arquivo: " + fxml);
+                } else {
+                    System.err.println("ERRO: Arquivo FXML não encontrado em nenhum dos caminhos esperados");
+                    return;
                 }
             }
+            
+            // Tenta carregar o FXML
+            System.out.println("Carregando FXML...");
             FXMLLoader loader = new FXMLLoader(fxml);
-            Node content = loader.load();
-            rootPane.setCenter(content);
-            // Ao sair do perfil, restaura menu esquerdo
-            if (inProfile) {
-                if (leftBackup != null) {
-                    rootPane.setLeft(leftBackup);
+            
+            try {
+                Node content = loader.load();
+                System.out.println("FXML carregado com sucesso");
+                
+                if (rootPane == null) {
+                    System.err.println("ERRO CRÍTICO: rootPane é nulo! Não é possível definir o conteúdo.");
+                    return;
                 }
-                inProfile = false;
+                
+                System.out.println("Definindo conteúdo no centro do rootPane...");
+                rootPane.setCenter(content);
+                System.out.println("Conteúdo definido com sucesso no centro");
+                
+                // Ao sair do perfil, restaura menu esquerdo
+                if (inProfile) {
+                    System.out.println("Restaurando menu esquerdo...");
+                    if (leftBackup != null) {
+                        rootPane.setLeft(leftBackup);
+                        System.out.println("Menu esquerdo restaurado");
+                    } else {
+                        System.err.println("AVISO: leftBackup é nulo, não foi possível restaurar o menu esquerdo");
+                    }
+                    inProfile = false;
+                }
+                
+            } catch (Exception e) {
+                System.err.println("ERRO ao carregar o FXML: " + e.getMessage());
+                e.printStackTrace();
+                throw e; // Re-lança a exceção para ser tratada no bloco catch externo
             }
+            
         } catch (Exception ex) {
+            String errorMsg = "Falha ao abrir tela: " + ex.getMessage();
+            System.err.println(errorMsg);
+            ex.printStackTrace();
+            
+            // Mostra uma mensagem de erro mais detalhada
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setTitle("Navegação");
-            alert.setContentText("Falha ao abrir tela: " + ex.getMessage());
-            alert.show();
+            alert.setHeaderText("Erro ao carregar a tela");
+            alert.setTitle("Erro de Navegação");
+            alert.setContentText(errorMsg);
+            alert.showAndWait();
         }
     }
 }

@@ -13,10 +13,13 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <javafx.version>21.0.3</javafx.version>
     <mysql.connector.version>8.4.0</mysql.connector.version>
-    <main.class>com.buyo.adminfx.Main</main.class>
+    <main.class>com.buyo.adminfx.ui.MainApp</main.class>
+    <javafx.platform>21</javafx.platform>
+    <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
   </properties>
 
   <dependencies>
+    <!-- JavaFX -->
     <dependency>
       <groupId>org.openjfx</groupId>
       <artifactId>javafx-controls</artifactId>
@@ -28,24 +31,110 @@
       <version>${javafx.version}</version>
     </dependency>
     <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-graphics</artifactId>
+      <version>${javafx.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openjfx</groupId>
+      <artifactId>javafx-base</artifactId>
+      <version>${javafx.version}</version>
+    </dependency>
+    
+    <!-- Banco de Dados -->
+    <dependency>
       <groupId>com.mysql</groupId>
       <artifactId>mysql-connector-j</artifactId>
       <version>${mysql.connector.version}</version>
     </dependency>
+    
+    <!-- Segurança -->
     <dependency>
       <groupId>org.mindrot</groupId>
       <artifactId>jbcrypt</artifactId>
       <version>0.4</version>
     </dependency>
+    
+    <!-- Ícones -->
+    <dependency>
+      <groupId>org.kordamp.ikonli</groupId>
+      <artifactId>ikonli-javafx</artifactId>
+      <version>12.3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.kordamp.ikonli</groupId>
+      <artifactId>ikonli-core</artifactId>
+      <version>12.3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.kordamp.ikonli</groupId>
+      <artifactId>ikonli-materialdesign2-pack</artifactId>
+      <version>12.3.1</version>
+    </dependency>
+    
+    <!-- Material Design -->
+    <dependency>
+      <groupId>com.jfoenix</groupId>
+      <artifactId>jfoenix</artifactId>
+      <version>9.0.10</version>
+    </dependency>
+    <dependency>
+      <groupId>org.kordamp.ikonli</groupId>
+      <artifactId>ikonli-materialdesign2-pack</artifactId>
+      <version>12.3.1</version>
+    </dependency>
+    
+    <!-- Material Design -->
+    <dependency>
+      <groupId>com.jfoenix</groupId>
+      <artifactId>jfoenix</artifactId>
+      <version>9.0.10</version>
+    </dependency>
+    
+    <!-- Animações -->
+    <!-- Removida dependência JFXTools que não está mais disponível -->
   </dependencies>
 
   <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*.fxml</include>
+          <include>**/*.css</include>
+          <include>**/*.properties</include>
+          <include>**/*.png</include>
+          <include>**/*.jpg</include>
+          <include>**/*.jpeg</include>
+          <include>**/*.gif</include>
+        </includes>
+      </resource>
+    </resources>
+    
     <plugins>
+      <plugin>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-maven-plugin</artifactId>
+        <version>${javafx.maven.plugin.version}</version>
+        <configuration>
+          <mainClass>${main.class}</mainClass>
+          <launcher>app</launcher>
+          <jlinkZipName>app</jlinkZipName>
+          <jlinkImageName>app</jlinkImageName>
+          <noManPages>true</noManPages>
+          <stripDebug>true</stripDebug>
+          <noHeaderFiles>true</noHeaderFiles>
+          <compress>2</compress>
+        </configuration>
+      </plugin>
+      
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.11.0</version>
         <configuration>
+          <source>21</source>
+          <target>21</target>
           <release>21</release>
         </configuration>
       </plugin>
@@ -76,6 +165,31 @@
               <shadedArtifactAttached>true</shadedArtifactAttached>
               <shadedClassifierName>shaded</shadedClassifierName>
               <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>${main.class}</mainClass>
+                </transformer>
+              </transformers>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                  </excludes>
+                </filter>
+              </filters>
+              <!-- Configuração para incluir module-info.class -->
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <includes>
+                    <include>module-info.class</include>
+                  </includes>
+                </filter>
+              </filters>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                   <mainClass>${main.class}</mainClass>
                 </transformer>

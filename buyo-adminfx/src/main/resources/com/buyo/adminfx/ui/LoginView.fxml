@@ -1,21 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.geometry.Insets?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.buyo.adminfx.ui.controllers.LoginController">
+<BorderPane xmlns="http://javafx.com/javafx/21" 
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.buyo.adminfx.ui.controllers.LoginController"
+            styleClass="root">
+    
     <center>
-        <VBox spacing="12" alignment="CENTER" BorderPane.alignment="CENTER">
-            <padding><Insets top="40" left="40" right="40" bottom="40"/></padding>
-            <Label text="StockRO AdminFX" style="-fx-font-size: 20; -fx-font-weight: bold;" />
-            <Label text="Faça login" />
-            <TextField fx:id="emailField" promptText="Email" prefWidth="320" onAction="#onLogin" />
-            <PasswordField fx:id="passwordField" promptText="Senha" prefWidth="320" onAction="#onLogin" />
-            <CheckBox fx:id="rememberCheck" text="Lembrar-me" />
-            <Button text="Entrar" onAction="#onLogin" prefWidth="320" />
-            <Label fx:id="errorLabel" textFill="red" />
+        <VBox alignment="CENTER" spacing="30" maxWidth="420" styleClass="login-container">
+            <!-- Cabeçalho com Logo -->
+            <VBox alignment="CENTER" spacing="15">
+                <!-- Logo Circular -->
+                <StackPane styleClass="login-logo">
+                    <Text text="S" styleClass="login-logo-text" />
+                </StackPane>
+                
+                <!-- Título e Subtítulo -->
+                <VBox alignment="CENTER" spacing="5">
+                    <Text styleClass="login-title">StockRO AdminFX</Text>
+                    <Text styleClass="login-subtitle">Sistema de Gerenciamento</Text>
+                </VBox>
+            </VBox>
+            
+            <!-- Formulário de Login -->
+            <VBox styleClass="login-form" spacing="20">
+                <Text styleClass="login-form-title">Faça login para continuar</Text>
+                
+                <VBox spacing="8">
+                    <Label text="Email" styleClass="label" />
+                    <TextField 
+                        fx:id="emailField" 
+                        promptText="seu@email.com" 
+                        style="-fx-pref-height: 42;" />
+                </VBox>
+                
+                <VBox spacing="8">
+                    <Label text="Senha" styleClass="label" />
+                    <PasswordField 
+                        fx:id="passwordField" 
+                        promptText="••••••••" 
+                        style="-fx-pref-height: 42;" />
+                </VBox>
+                
+                <CheckBox fx:id="rememberCheck" text="Lembrar-me" styleClass="label" onAction="#onRememberMeAction" />
+                
+                <Button 
+                    text="Entrar" 
+                    onAction="#onLogin" 
+                    style="-fx-pref-height: 44;" 
+                    styleClass="button button-primary" 
+                    defaultButton="true" />
+                
+                <Label 
+                    fx:id="errorLabel" 
+                    styleClass="error-message" 
+                    style="-fx-pref-width: 100%; -fx-wrap-text: true;" />
+            </VBox>
+            
+            <!-- Rodapé -->
+            <Text styleClass="login-subtitle" style="-fx-font-size: 12px;">
+                © 2025 StockRO AdminFX - Todos os direitos reservados
+            </Text>
         </VBox>
     </center>
+    
+    <!-- Removida a referência ao arquivo CSS para evitar conflitos -->
+    
 </BorderPane>
 

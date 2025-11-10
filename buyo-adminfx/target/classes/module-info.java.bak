@@ -1,0 +1,25 @@
+module com.buyo.adminfx {
+    requires transitive javafx.controls;
+    requires transitive javafx.fxml;
+    
+    // Dependências do Java
+    requires java.sql;
+    requires java.desktop;
+    
+    // Dependências de terceiros
+    requires jbcrypt;  // Nome do módulo automático para jBCrypt
+    requires com.jfoenix;
+    requires org.kordamp.ikonli.javafx;
+    requires org.kordamp.ikonli.core;
+    requires org.kordamp.ikonli.materialdesign2;
+    requires mysql.connector.j;  // Módulo correto para MySQL Connector/J 8.0+
+    
+    // Abre os pacotes necessários para reflexão
+    opens com.buyo.adminfx to javafx.graphics, javafx.fxml, javafx.base;
+    opens com.buyo.adminfx.ui to javafx.fxml, javafx.graphics, javafx.base;
+    opens com.buyo.adminfx.ui.controllers to javafx.fxml, javafx.graphics, javafx.base;
+    
+    // Exporta os pacotes necessários
+    exports com.buyo.adminfx;
+    exports com.buyo.adminfx.ui;
+}

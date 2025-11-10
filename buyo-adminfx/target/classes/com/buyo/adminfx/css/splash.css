@@ -1,0 +1,82 @@
+/* Estilos para a tela de carregamento */
+
+.root {
+    -fx-background-color: #2c3e50;
+    -fx-padding: 20;
+    background-color: #2c3e50;
+    padding: 20px;
+}
+
+.splash-title {
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-fill: #ecf0f1;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 2);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 36px;
+    font-weight: bold;
+    fill: #ecf0f1;
+    text-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+.splash-subtitle {
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-font-size: 16px;
+    -fx-fill: #bdc3c7;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 16px;
+    fill: #bdc3c7;
+}
+
+.status-text {
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-fill: #7f8c8d;
+    -fx-font-style: italic;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 14px;
+    fill: #7f8c8d;
+    font-style: italic;
+}
+
+.progress-bar {
+    -fx-accent: #3498db;
+}
+
+.progress-bar .track {
+    -fx-background-color: #34495e;
+    -fx-background-radius: 5px;
+    background-color: #34495e;
+    border-radius: 5px;
+}
+
+.progress-bar .bar {
+    -fx-background-color: #3498db;
+    -fx-background-radius: 5px;
+    -fx-padding: 2px;
+    background-color: #3498db;
+    border-radius: 5px;
+    padding: 2px;
+}
+
+/* Efeito de brilho no título */
+@keyframes glow {
+    0% { 
+        -fx-fill: #ecf0f1;
+        fill: #ecf0f1;
+    }
+    50% { 
+        -fx-fill: #3498db;
+        fill: #3498db;
+    }
+    100% { 
+        -fx-fill: #ecf0f1;
+        fill: #ecf0f1;
+    }
+}
+
+.splash-title {
+    -fx-animation: glow 3s ease-in-out infinite;
+    animation: glow 3s ease-in-out infinite;
+}
