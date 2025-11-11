@@ -1,6 +1,6 @@
 -- Script de criação de tabelas de exemplo (MySQL) - schema PT-BR
-CREATE DATABASE IF NOT EXISTS admin_app_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE admin_app_db;
+CREATE DATABASE IF NOT EXISTS stockro_bd CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE stockro_bd;
 
 CREATE TABLE IF NOT EXISTS cliente (
   id INT AUTO_INCREMENT PRIMARY KEY,

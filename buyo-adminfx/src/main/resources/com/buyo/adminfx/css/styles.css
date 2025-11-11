@@ -54,7 +54,7 @@
 /* Efeito de transição suave para botões */
 .button {
     -fx-cursor: hand;
-    -fx-background-radius: -border-radius;
+    -fx-background-radius: 10px;
     -fx-padding: 8px 16px;
     -fx-effect: -shadow-sm;
     -fx-transition: all 0.2s;
@@ -86,8 +86,8 @@
 
 /* Campos de entrada estilizados */
 .text-field, .password-field, .combo-box {
-    -fx-background-radius: -border-radius-sm;
-    -fx-border-radius: -border-radius-sm;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
     -fx-padding: 8px 12px;
     -fx-border-color: -border-color;
     -fx-border-width: 1px;
@@ -107,7 +107,7 @@
 }
 
 .tab {
-    -fx-background-radius: -border-radius -border-radius 0 0;
+    -fx-background-radius: 10px 10px 0 0;
     -fx-padding: 8px 16px;
 }
 
@@ -120,13 +120,13 @@
 /* ===== ESTILOS DA TELA DE LOGIN ===== */
 .login-container {
     -fx-background-color: -bg-white;
-    -fx-background-radius: -border-radius-lg;
+    -fx-background-radius: 16px;
     -fx-effect: -shadow-lg;
     -fx-padding: 40px;
     -fx-spacing: 24px;
     -fx-max-width: 400px;
     -fx-alignment: center;
-    -fx-border-radius: -border-radius-lg;
+    -fx-border-radius: 16px;
     -fx-border-color: rgba(0,0,0,0.05);
     -fx-border-width: 1px;
 }
@@ -170,7 +170,7 @@
     -fx-spacing: 20px;
     -fx-background-radius: -border-radius;
     -fx-effect: -shadow;
-    -fx-border-radius: -border-radius;
+    -fx-border-radius: 10px;
     -fx-border-color: rgba(0,0,0,0.05);
     -fx-border-width: 1px;
 }

@@ -35,6 +35,18 @@ public class LoginController {
             // Foca no campo de senha para o usuário digitar a senha
             passwordField.requestFocus();
         }
+        // Bootstrap do banco e usuário admin padrão
+        try {
+            userDAO.ensureUsersTable();
+            userDAO.ensureUserProfileColumns();
+            if (!userDAO.hasAnyAdmin()) {
+                boolean created = userDAO.createAdmin("Admin", "admin@local", "admin123");
+                if (created) {
+                    System.out.println("Administrador padrão criado: admin@local / admin123");
+                    if (errorLabel != null) errorLabel.setText("Admin inicial criado: admin@local / admin123");
+                }
+            }
+        } catch (Exception ignore) {}
     }
 
     @FXML
@@ -47,7 +59,8 @@ public class LoginController {
         }
         User user = userDAO.authenticate(email, pass);
         if (user == null) {
-            setError("Credenciais inválidas.");
+            String detail = userDAO.getLastError();
+            setError("Credenciais inválidas." + (detail != null && !detail.isBlank() ? " (" + detail + ")" : ""));
             return;
         }
         Session.setCurrentUser(user);

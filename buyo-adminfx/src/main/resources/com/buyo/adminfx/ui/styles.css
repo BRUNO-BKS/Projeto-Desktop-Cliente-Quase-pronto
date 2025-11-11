@@ -88,12 +88,12 @@
 /* Container de login */
 .login-container {
     -fx-background-color: -bg-white;
-    -fx-background-radius: -border-radius;
-    -fx-padding: 40px;
-    -fx-spacing: 24px;
+    -fx-background-radius: 15px;
+    -fx-padding: 100px;
+    -fx-spacing: 80px;
     -fx-effect: -shadow-lg;
-    -fx-min-width: 400px;
-    -fx-max-width: 500px;
+    -fx-min-width: 800px;
+    -fx-max-width: 800px;
     -fx-alignment: center;
 }
 
@@ -106,8 +106,8 @@
 
 /* Estilo para a logo "S" */
 .logo-text {
-    -fx-font-size: 48px;
-    -fx-font-weight: 800;
+    -fx-font-size: 20px;
+    -fx-font-weight: 10;
     -fx-fill: -primary-color;
     -fx-effect: dropshadow(three-pass-box, rgba(255, 107, 53, 0.2), 5, 0, 0, 2);
 }
@@ -141,8 +141,8 @@
     -fx-text-fill: -text-primary;
     -fx-prompt-text-fill: -text-muted;
     -fx-border-color: -border-color;
-    -fx-border-radius: -border-radius-sm;
-    -fx-background-radius: -border-radius-sm;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
     -fx-padding: 12px;
     -fx-font-size: 14px;
 }
@@ -154,13 +154,13 @@
 
 .button {
     -fx-background-color: -primary-color;
-    -fx-text-fill: white;
-    -fx-font-weight: 500;
-    -fx-font-size: 15px;
-    -fx-padding: 14px 32px;
-    -fx-background-radius: -border-radius-sm;
+    -fx-text-fill: rgb(255, 255, 255);
+    -fx-font-weight: 100;
+    -fx-font-size: 11px;
+    -fx-padding:12px 12px;
+    -fx-background-radius: 15px;
     -fx-cursor: hand;
-    -fx-min-width: 200px;
+    -fx-min-width: 10px;
     -fx-alignment: center;
     -fx-effect: dropshadow(three-pass-box, rgba(74, 108, 247, 0.3), 5, 0, 0, 2);
 }
@@ -176,13 +176,13 @@
 
 .check-box {
     -fx-text-fill: -text-primary;
-    -fx-font-size: 14px;
+    -fx-font-size: 10px;
 }
 
 .check-box .box {
     -fx-background-color: -bg-tertiary;
     -fx-border-color: -border-color;
-    -fx-border-radius: 4px;
+    -fx-border-radius: 5px;
 }
 
 .check-box:selected .mark {

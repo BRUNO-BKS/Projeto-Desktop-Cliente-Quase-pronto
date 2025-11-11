@@ -1,6 +1,6 @@
 -- Seeds para banco `buyo`
 -- Execute este arquivo após criar o schema
-USE buyo;
+USE stockro_bd;
 
 -- Categorias
 INSERT INTO categorias (nome, descricao) VALUES

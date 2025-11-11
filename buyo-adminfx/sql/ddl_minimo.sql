@@ -1,8 +1,8 @@
 -- DDL mínimo para login/cadastro funcionar
 -- Cria o schema e a tabela 'usuarios'
 
-CREATE DATABASE IF NOT EXISTS buyo DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-USE buyo;
+CREATE DATABASE IF NOT EXISTS stockro_bd DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE stockro_bd;
 
 CREATE TABLE IF NOT EXISTS usuarios (
   id INT AUTO_INCREMENT PRIMARY KEY,

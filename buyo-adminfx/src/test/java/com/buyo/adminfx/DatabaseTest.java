@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class DatabaseTest {
     public static void main(String[] args) {
-        String url = "jdbc:mysql://localhost:3306/buyo?useSSL=false&serverTimezone=UTC";
+        String url = "jdbc:mysql://localhost:3306/stockro_bd?useSSL=false&serverTimezone=UTC";
         Properties props = new Properties();
         props.setProperty("user", "root");
         props.setProperty("password", "12345678");

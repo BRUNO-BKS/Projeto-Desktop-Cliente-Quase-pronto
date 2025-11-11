@@ -4,6 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.shape.Circle?>
 
 <BorderPane xmlns="http://javafx.com/javafx/21" 
             xmlns:fx="http://javafx.com/fxml/1"
@@ -15,8 +16,9 @@
             <!-- Cabeçalho com Logo -->
             <VBox alignment="CENTER" spacing="15">
                 <!-- Logo Circular -->
-                <StackPane style="-fx-background-color: #FF6B35; -fx-background-radius: 50%; -fx-min-width: 80px; -fx-min-height: 80px; -fx-alignment: center;">
-                    <Text text="S" style="-fx-fill: white; -fx-font-size: 48px; -fx-font-weight: bold;" />
+                <StackPane alignment="CENTER">
+                    <Circle radius="48" fill="#FF6B35" />
+                    <Text text="SRO" style="-fx-fill: white; -fx-font-size: 36px; -fx-font-weight: bold;" />
                 </StackPane>
                 
                 <!-- Título e Subtítulo -->
@@ -36,7 +38,7 @@
                         fx:id="emailField" 
                         promptText="seu@email.com" 
                         styleClass="text-field"
-                        style="-fx-pref-height: 42;" />
+                        style="-fx-pref-height: 42px;" />
                 </VBox>
                 
                 <VBox spacing="8">
@@ -45,7 +47,7 @@
                         fx:id="passwordField" 
                         promptText="••••••••" 
                         styleClass="password-field"
-                        style="-fx-pref-height: 42;" />
+                        style="-fx-pref-height: 42px;" />
                 </VBox>
                 
                 <CheckBox fx:id="rememberCheck" text="Lembrar-me" style="-fx-text-fill: #e65c00;" onAction="#onRememberMeAction" />
@@ -53,7 +55,7 @@
                 <Button 
                     text="Entrar" 
                     onAction="#onLogin" 
-                    style="-fx-pref-height: 44; -fx-background-color: #FF6B35; -fx-text-fill: white; -fx-font-weight: bold;" 
+                    style="-fx-pref-height: 44px; -fx-background-color: #FF6B35; -fx-text-fill: white; -fx-font-weight: bold;" 
                     styleClass="button" 
                     defaultButton="true" />
                 

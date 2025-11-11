@@ -1,6 +1,6 @@
 -- Criação do banco e tabelas para o projeto buyo-adminfx
-CREATE DATABASE IF NOT EXISTS buyo_admin CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
-USE buyo_admin;
+CREATE DATABASE IF NOT EXISTS stockro_bd CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+USE stockro_bd;
 
 CREATE TABLE IF NOT EXISTS customers (
   id INT AUTO_INCREMENT PRIMARY KEY,
