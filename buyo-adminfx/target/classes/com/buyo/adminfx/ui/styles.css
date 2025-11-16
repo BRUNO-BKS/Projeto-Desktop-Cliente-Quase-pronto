@@ -226,3 +226,217 @@
 #rememberCheck:disabled {
     -fx-opacity: 0.7;
 }
+
+/* Cores para diferentes status */
+.status-pendente {
+    -fx-background-color: #f39c12; /* Laranja */
+}
+
+.status-aprovado {
+    -fx-background-color: #2ecc71; /* Verde */
+}
+
+.status-cancelado {
+    -fx-background-color: #e74c3c; /* Vermelho */
+}
+
+.status-em-andamento {
+    -fx-background-color: #3498db; /* Azul */
+}
+
+/* Estilo para as caixinhas de data */
+.date-badge {
+    -fx-padding: 12px 20px;
+    -fx-background-radius: 12px;
+    
+    -fx-text-fill: -text-primary;
+    -fx-font-size: 15px;
+    -fx-font-weight: 500;
+    -fx-effect: -shadow-sm;
+    
+    -fx-border-width: 1px;
+    -fx-alignment: center;
+    -fx-min-height: 48px;
+    -fx-min-width: 200px;
+    -fx-pref-height: 48px;
+    -fx-pref-width: 200px;
+}
+
+/* Estilo para DatePickers */
+.date-picker {
+    -fx-background-color: #f39c12;
+    
+    -fx-pref-height: 40px ;
+    -fx-min-height: 40px;
+    -fx-pref-width: 170px;
+    -fx-min-width: 170px;
+}
+
+.date-picker .text-field {
+    -fx-padding: 12px 20px;
+    -fx-min-height: 48px;
+    -fx-pref-height: 48px;
+    -fx-background-radius: 12px;
+}
+
+/* Estilo para ComboBox (categorias e status) */
+.combo-box, 
+.combo-box-category,
+.combo-box-status {
+    -fx-pref-height: 40px;
+    -fx-min-height: 40px;
+    -fx-pref-width: 170px;
+    -fx-min-width: 170px;
+    -fx-background-color: white !important;
+    -fx-text-fill: -text-primary !important;
+}
+
+/* Estilo específico para o ComboBox de status */
+.combo-box-status .list-cell,
+.combo-box-status .cell,
+.combo-box-status .text-field {
+    -fx-text-fill: -text-primary !important;
+    -fx-font-size: 14px !important;
+}
+
+/* Estilo específico para o ComboBox de categoria */
+.combo-box-category .list-cell,
+.combo-box-category .cell,
+.combo-box-category .text-field {
+    -fx-text-fill: -text-primary !important;
+    -fx-font-size: 14px !important;
+}
+
+/* Estilo para a célula do ComboBox */
+.combo-box .list-cell {
+    -fx-padding: 10px 15px;
+    -fx-min-height: 40px;
+    -fx-text-fill: -text-primary !important;
+    -fx-background-color: white !important;
+}
+
+/* Estilo para o campo de texto interno do ComboBox */
+.combo-box .text-input {
+    -fx-text-fill: -text-primary !important;
+    -fx-prompt-text-fill: #fdfcfc !important;
+    -fx-font-size: 14px !important;
+    -fx-background-color: white !important;
+}
+
+/* Estilo para o texto do ComboBox */
+.combo-box .cell {
+    -fx-text-fill: -text-primary !important;
+    -fx-background-color: white !important;
+}
+
+/* Estilo para o campo de texto do ComboBox */
+.combo-box .text-field {
+    -fx-text-fill: -text-primary !important;
+    -fx-prompt-text-fill: #ffffff !important;
+    -fx-background-color: white !important;
+}
+
+/* Estilo para o texto no ComboBox quando está fechado */
+.combo-box .text {
+    -fx-fill: -text-primary !important;
+    -fx-font-size: 14px !important;
+}
+
+/* Estilo para o botão do ComboBox */
+.combo-box .arrow-button {
+    -fx-background-color: transparent !important;
+}
+
+.combo-box .arrow {
+    -fx-background-color: -text-primary !important;
+}
+
+/* Estilo para o popup do ComboBox */
+.combo-box-popup .list-view {
+    -fx-background-color: white !important;
+    -fx-border-color: #e0e0e0 !important;
+    -fx-border-width: 1px !important;
+}
+
+/* Estilo para os itens da lista suspensa */
+.combo-box-popup .list-view .list-cell {
+    -fx-padding: 10px 15px !important;
+    -fx-text-fill: -text-primary !important;
+    -fx-background-color: white !important;
+}
+
+/* Estilo quando o mouse passa por cima de um item */
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: #f5f5f5 !important;
+}
+
+/* Estilo para o item selecionado na lista suspensa */
+.combo-box-popup .list-view .list-cell:selected {
+    -fx-background-color: -primary-light !important;
+    -fx-text-fill: white !important;
+}
+
+/* Garante que o texto fique visível no ComboBox */
+.combo-box .cell:selected {
+    -fx-text-fill: -text-primary !important;
+}
+
+/* Força a cor do texto para todos os ComboBoxes */
+.combo-box > .list-cell {
+    -fx-text-fill: -text-primary !important;
+}
+
+/* Estilo para o campo de exibição do ComboBox */
+.combo-box .text {
+    -fx-fill: -text-primary !important;
+}
+
+/* Estilo para os itens da lista suspensa */
+.combo-box-popup .list-view .list-cell {
+    -fx-padding: 10px 15px;
+    -fx-text-fill: -text-primary;
+    -fx-background-color: white;
+}
+
+/* Estilo quando o mouse passa por cima de um item */
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: #f5f5f5;
+}
+
+/* Estilo para o item selecionado */
+.combo-box-popup .list-view .list-cell:selected {
+    -fx-background-color: -primary-light;
+    -fx-text-fill: white;
+}
+
+/* Estilo para a seta do ComboBox */
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.combo-box .arrow {
+    -fx-background-color: -text-primary;
+}
+
+/* Ajuste para os labels 'De:' e 'Até:' */
+.filter-label {
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+    -fx-text-fill: -text-primary;
+    -fx-padding: 0 8px 0 0;
+    -fx-alignment: center;
+}
+
+/* Estilo para datas vencidas */
+.date-overdue {
+    -fx-background-color: #fadbd8; /* Vermelho claro */
+    -fx-text-fill: #c0392b; /* Vermelho escuro */
+    -fx-border-color: #e6b0aa;
+}
+
+/* Estilo para datas próximas */
+.date-upcoming {
+    -fx-background-color: #fdebd0; /* Laranja claro */
+    -fx-text-fill: #d35400; /* Laranja escuro */
+    -fx-border-color: #f5b041;
+}

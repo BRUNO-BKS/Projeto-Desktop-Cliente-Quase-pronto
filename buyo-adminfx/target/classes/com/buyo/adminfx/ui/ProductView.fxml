@@ -13,7 +13,7 @@
             <Button text="Remover" onAction="#onDelete" />
             <Separator />
             <Label text="Categoria:" />
-            <ComboBox fx:id="categoryFilter" prefWidth="180" promptText="Todas" />
+            <ComboBox fx:id="categoryFilter" prefWidth="180" promptText="Todas" styleClass="combo-box-category" />
         </ToolBar>
     </top>
     <center>

@@ -20,7 +20,7 @@
             <Button text="Aplicar Cupom…" onAction="#onApplyCoupon" />
             <Separator />
             <Label text="Status:" />
-            <ComboBox fx:id="statusFilter" prefWidth="140" />
+            <ComboBox fx:id="statusFilter" prefWidth="140" styleClass="combo-box-status" />
             <Label text="De:" />
             <DatePicker fx:id="dateFrom" />
             <Label text="Até:" />

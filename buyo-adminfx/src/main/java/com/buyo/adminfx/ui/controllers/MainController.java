@@ -37,6 +37,7 @@ public class MainController {
     @FXML private Button btnProducts;
     @FXML private Button btnOrders;
     @FXML private Button btnCategories;
+    @FXML private Button btnBanners;
 
     private static MainController lastInstance;
 
@@ -229,6 +230,11 @@ public class MainController {
     @FXML
     public void showReviews(ActionEvent e) {
         setCenterView("/com/buyo/adminfx/ui/ReviewView.fxml");
+    }
+
+    @FXML
+    public void showBanners(ActionEvent e) {
+        setCenterView("/com/buyo/adminfx/ui/BannerView.fxml");
     }
 
     

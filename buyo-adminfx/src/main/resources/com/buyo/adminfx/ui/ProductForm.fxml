@@ -18,7 +18,7 @@
 
             <Label text="Categoria:" GridPane.rowIndex="3" />
             <VBox spacing="8" GridPane.rowIndex="3" GridPane.columnIndex="1">
-                <ComboBox fx:id="categoryCombo" prefWidth="280" />
+                <ComboBox fx:id="categoryCombo" prefWidth="280" styleClass="combo-box-category" />
                 <CheckBox fx:id="createCategoryCheck" text="Criar nova categoria" onAction="#onToggleCreateCategory" />
                 <VBox fx:id="newCategoryBox" spacing="6" visible="false" managed="false">
                     <TextField fx:id="newCategoryName" promptText="Nome da categoria" />

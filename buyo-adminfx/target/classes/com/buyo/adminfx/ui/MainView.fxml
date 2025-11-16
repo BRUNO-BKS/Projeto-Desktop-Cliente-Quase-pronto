@@ -40,6 +40,7 @@
             <Button fx:id="btnAddresses" text="Endereços" onAction="#showAddresses" prefWidth="180" />
             <Button fx:id="btnCoupons" text="Cupons" onAction="#showCoupons" prefWidth="180" />
             <Button fx:id="btnCarts" text="Carrinhos" onAction="#showCarts" prefWidth="180" />
+            <Button fx:id="btnBanners" text="Banners" onAction="#showBanners" prefWidth="180" />
             <Button fx:id="btnReviews" text="Avaliações" onAction="#showReviews" prefWidth="180" />
             <Pane VBox.vgrow="ALWAYS" />
             <MenuButton text="Configurações" focusTraversable="false" prefWidth="180">

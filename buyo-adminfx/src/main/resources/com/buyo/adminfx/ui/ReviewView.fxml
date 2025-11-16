@@ -9,7 +9,7 @@
             <Label text="Avaliações" />
             <Separator />
             <Label text="Categoria:" />
-            <ComboBox fx:id="categoryFilter" prefWidth="180" />
+            <ComboBox fx:id="categoryFilter" prefWidth="180" styleClass="combo-box-category" />
             <Label text="Produto ID:" />
             <TextField fx:id="productIdFilter" promptText="ex: 10" prefWidth="90" />
             <Label text="Usuário ID:" />

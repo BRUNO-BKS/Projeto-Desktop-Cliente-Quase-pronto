@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.buyo.adminfx.ui.controllers.BannersController">
+    <top>
+        <ToolBar>
+            <Label text="Banners" />
+            <Separator />
+            <Button text="Novo…" onAction="#onNewBanner" />
+            <Button text="Editar…" onAction="#onEditBanner" />
+            <Button text="Remover" onAction="#onDeleteBanner" />
+        </ToolBar>
+    </top>
+    <center>
+        <TableView fx:id="table">
+            <columns>
+                <TableColumn fx:id="colId" text="ID" prefWidth="60" />
+                <TableColumn fx:id="colTitle" text="Título" prefWidth="160" />
+                <TableColumn fx:id="colSubtitle" text="Subtítulo" prefWidth="200" />
+                <TableColumn fx:id="colImageUrl" text="Imagem URL" prefWidth="220" />
+                <TableColumn fx:id="colLinkUrl" text="Link URL" prefWidth="220" />
+                <TableColumn fx:id="colOrder" text="Ordem" prefWidth="80" />
+                <TableColumn fx:id="colActive" text="Ativo" prefWidth="80" />
+                <TableColumn fx:id="colStartAt" text="Início" prefWidth="140" />
+                <TableColumn fx:id="colEndAt" text="Fim" prefWidth="140" />
+                <TableColumn fx:id="colCreatedAt" text="Criado em" prefWidth="160" />
+                <TableColumn fx:id="colUpdatedAt" text="Atualizado em" prefWidth="160" />
+            </columns>
+        </TableView>
+    </center>
+</BorderPane>
