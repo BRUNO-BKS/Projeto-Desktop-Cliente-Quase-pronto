@@ -42,7 +42,7 @@
     -fx-font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
     -fx-background-color: -bg-gray;
     -fx-font-smoothing-type: lcd;
-    -fx-font-size: 14px;
+    -fx-font-size: 13px;
 }
 
 /* Estilo para botões */
@@ -132,7 +132,7 @@
 
 .label {
     -fx-text-fill: -text-primary;
-    -fx-font-size: 14px;
+    -fx-font-size: 13px;
     -fx-font-weight: 500;
 }
 
@@ -141,10 +141,10 @@
     -fx-text-fill: -text-primary;
     -fx-prompt-text-fill: -text-muted;
     -fx-border-color: -border-color;
-    -fx-border-radius: 12px;
-    -fx-background-radius: 12px;
-    -fx-padding: 12px;
-    -fx-font-size: 14px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 8px 12px;
+    -fx-font-size: 13px;
 }
 
 .text-field:focused, .password-field:focused {
@@ -155,14 +155,14 @@
 .button {
     -fx-background-color: -primary-color;
     -fx-text-fill: rgb(255, 255, 255);
-    -fx-font-weight: 100;
-    -fx-font-size: 11px;
-    -fx-padding:12px 12px;
-    -fx-background-radius: 15px;
+    -fx-font-weight: 500;
+    -fx-font-size: 12px;
+    -fx-padding: 8px 14px;
+    -fx-background-radius: 6px;
     -fx-cursor: hand;
-    -fx-min-width: 10px;
+    -fx-min-width: auto;
     -fx-alignment: center;
-    -fx-effect: dropshadow(three-pass-box, rgba(74, 108, 247, 0.3), 5, 0, 0, 2);
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 108, 247, 0.3), 4, 0, 0, 1);
 }
 
 .button:hover {
@@ -176,17 +176,45 @@
 
 .check-box {
     -fx-text-fill: -text-primary;
-    -fx-font-size: 10px;
+    -fx-font-size: 13px;
+    -fx-font-weight: 500;
 }
 
 .check-box .box {
-    -fx-background-color: -bg-tertiary;
-    -fx-border-color: -border-color;
-    -fx-border-radius: 5px;
+    -fx-background-color: white;
+    -fx-border-color: #d0d0d0;
+    -fx-border-width: 2px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-pref-width: 18px;
+    -fx-pref-height: 18px;
+    -fx-min-width: 18px;
+    -fx-min-height: 18px;
+    -fx-max-width: 18px;
+    -fx-max-height: 18px;
+}
+
+.check-box:hover .box {
+    -fx-border-color: -primary-color;
+    -fx-background-color: #f8f9fa;
+}
+
+.check-box:selected .box {
+    -fx-background-color: -primary-color;
+    -fx-border-color: -primary-color;
 }
 
 .check-box:selected .mark {
-    -fx-background-color: -primary-color;
+    -fx-background-color: white;
+    -fx-shape: "M 5.5 9.5 L 2.5 6.5 L 1.5 7.5 L 5.5 11.5 L 13.5 3.5 L 12.5 2.5 Z";
+    -fx-scale-shape: true;
+    -fx-pref-width: 12px;
+    -fx-pref-height: 12px;
+}
+
+.check-box:focused .box {
+    -fx-border-color: -primary-color;
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 144, 226, 0.3), 3, 0, 0, 1);
 }
 
 .error-message {
@@ -196,35 +224,56 @@
     -fx-text-alignment: center;
 }
 
+#rememberCheck {
+    -fx-text-fill: #2C5F8D;
+    -fx-font-size: 13px;
+    -fx-font-weight: 500;
+}
+
 #rememberCheck .box {
-    -fx-background-color: -bg-tertiary;
-    -fx-border-color: -border-color;
+    -fx-background-color: white;
+    -fx-border-color: #d0d0d0;
+    -fx-border-width: 2px;
     -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-pref-width: 18px;
+    -fx-pref-height: 18px;
+    -fx-min-width: 18px;
+    -fx-min-height: 18px;
+    -fx-max-width: 18px;
+    -fx-max-height: 18px;
+}
+
+#rememberCheck:hover .box {
+    -fx-border-color: -primary-color;
+    -fx-background-color: #f8f9fa;
+}
+
+#rememberCheck:selected .box {
+    -fx-background-color: -primary-color;
+    -fx-border-color: -primary-color;
 }
 
 #rememberCheck:selected .mark {
-    -fx-background-color: -primary-color;
+    -fx-background-color: white;
+    -fx-shape: "M 5.5 9.5 L 2.5 6.5 L 1.5 7.5 L 5.5 11.5 L 13.5 3.5 L 12.5 2.5 Z";
+    -fx-scale-shape: true;
+    -fx-pref-width: 12px;
+    -fx-pref-height: 12px;
 }
 
-/* Efeito de hover para o CheckBox */
-#rememberCheck:hover .box {
-    -fx-effect: -shadow-sm;
-}
-
-/* Efeito de foco para o CheckBox */
 #rememberCheck:focused .box {
-    -fx-effect: -shadow-primary;
+    -fx-border-color: -primary-color;
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 144, 226, 0.3), 3, 0, 0, 1);
 }
 
-/* Estilo para o texto do CheckBox */
 #rememberCheck .text {
-    -fx-fill: -text-primary;
-    -fx-font-size: 14px;
+    -fx-fill: #2C5F8D;
+    -fx-font-size: 13px;
 }
 
-/* Estilo para o CheckBox quando desabilitado */
 #rememberCheck:disabled {
-    -fx-opacity: 0.7;
+    -fx-opacity: 0.6;
 }
 
 /* Cores para diferentes status */
@@ -439,4 +488,383 @@
     -fx-background-color: #E8F2F9; /* Azul claro */
     -fx-text-fill: #2C5F8D; /* Azul escuro */
     -fx-border-color: #6BA3E8;
+}
+
+/* ============================================
+   ESTILOS PROFISSIONAIS PARA INTERFACE
+   ============================================ */
+
+/* Top Bar - Barra superior */
+.top-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 0 0 1 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.05), 3, 0, 0, 1);
+    -fx-padding: 8px 15px;
+}
+
+/* Sidebar - Menu lateral */
+VBox[style*="background-color: #ffffff"] {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 0 1 0 0;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.05), 5, 0, 2, 0);
+    -fx-padding: 15px 12px;
+}
+
+/* Botões do menu lateral */
+VBox Button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #2C5F8D;
+    -fx-font-size: 13px;
+    -fx-font-weight: 500;
+    -fx-padding: 9px 12px;
+    -fx-background-radius: 6px;
+    -fx-border-radius: 6px;
+    -fx-alignment: center-left;
+    -fx-cursor: hand;
+    -fx-min-width: 180px;
+    -fx-pref-width: 180px;
+    -fx-max-width: 180px;
+}
+
+VBox Button:hover {
+    -fx-background-color: #E8F2F9;
+    -fx-text-fill: #4A90E2;
+    -fx-translate-x: 3px;
+}
+
+VBox Button:pressed {
+    -fx-background-color: #6BA3E8;
+    -fx-text-fill: white;
+}
+
+/* Título do menu lateral */
+VBox Label[style*="font-size: 20"] {
+    -fx-text-fill: #2C5F8D;
+    -fx-font-weight: 700;
+    -fx-font-size: 16px;
+    -fx-padding: 0 0 10px 0;
+}
+
+/* Separador elegante */
+Separator {
+    -fx-background-color: #e5e7eb;
+    -fx-pref-height: 1px;
+    -fx-padding: 6px 0;
+}
+
+/* Tabelas profissionais */
+.table-view {
+    -fx-background-color: white;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 1px;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.05), 5, 0, 1, 2);
+}
+
+.table-view .column-header {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 8px 12px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #2C5F8D;
+    -fx-font-size: 12px;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-view .table-cell {
+    -fx-padding: 8px 12px;
+    -fx-border-color: #f0f0f0;
+    -fx-border-width: 0 0 1 0;
+    -fx-text-fill: #2C5F8D;
+    -fx-font-size: 12px;
+}
+
+.table-row-cell {
+    -fx-background-color: white;
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #fafbfc;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #E8F2F9;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #6BA3E8;
+    -fx-text-background-color: white;
+}
+
+.table-row-cell:selected .table-cell {
+    -fx-text-fill: white;
+}
+
+/* Toolbar profissional */
+.tool-bar {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 0 0 1 0;
+    -fx-padding: 8px 12px;
+    -fx-spacing: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.03), 3, 0, 0, 1);
+}
+
+.tool-bar .label {
+    -fx-text-fill: #2C5F8D;
+    -fx-font-weight: 600;
+    -fx-font-size: 12px;
+}
+
+.tool-bar .button {
+    -fx-background-color: #4A90E2;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: 500;
+    -fx-padding: 6px 12px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-min-width: auto;
+    -fx-pref-width: auto;
+    -fx-max-width: auto;
+    -fx-cursor: hand;
+}
+
+.tool-bar .button:hover {
+    -fx-background-color: #357ABD;
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 144, 226, 0.3), 4, 0, 0, 2);
+}
+
+/* Labels profissionais */
+.label {
+    -fx-text-fill: #2C5F8D;
+    -fx-font-size: 13px;
+    -fx-font-weight: 500;
+}
+
+/* MenuButton do perfil */
+.menu-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+}
+
+.menu-button:hover {
+    -fx-background-color: #f8f9fa;
+    -fx-background-radius: 8px;
+}
+
+.menu-button .label {
+    -fx-text-fill: #2C5F8D;
+    -fx-font-weight: 500;
+}
+
+/* Avatar circle */
+.avatar {
+    -fx-fill: #4A90E2;
+    -fx-stroke: white;
+    -fx-stroke-width: 2px;
+}
+
+/* MenuButton de configurações */
+.menu-button .label[text="⚙"] {
+    -fx-font-size: 16px;
+    -fx-text-fill: #2C5F8D;
+}
+
+/* Menu items */
+.menu-item {
+    -fx-padding: 10px 20px;
+    -fx-cursor: hand;
+}
+
+.menu-item:hover {
+    -fx-background-color: #E8F2F9;
+}
+
+.menu-item .label {
+    -fx-text-fill: #2C5F8D;
+    -fx-font-size: 13px;
+}
+
+/* CheckBox no toolbar (como o "Ativos" em cupons) */
+.tool-bar .check-box {
+    -fx-text-fill: #2C5F8D;
+    -fx-font-size: 12px;
+    -fx-font-weight: 500;
+}
+
+.tool-bar .check-box .box {
+    -fx-background-color: white;
+    -fx-border-color: #d0d0d0;
+    -fx-border-width: 2px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-pref-width: 16px;
+    -fx-pref-height: 16px;
+    -fx-min-width: 16px;
+    -fx-min-height: 16px;
+    -fx-max-width: 16px;
+    -fx-max-height: 16px;
+}
+
+.tool-bar .check-box:hover .box {
+    -fx-border-color: -primary-color;
+    -fx-background-color: #f8f9fa;
+}
+
+.tool-bar .check-box:selected .box {
+    -fx-background-color: -primary-color;
+    -fx-border-color: -primary-color;
+}
+
+.tool-bar .check-box:selected .mark {
+    -fx-background-color: white;
+    -fx-shape: "M 5.5 9.5 L 2.5 6.5 L 1.5 7.5 L 5.5 11.5 L 13.5 3.5 L 12.5 2.5 Z";
+    -fx-scale-shape: true;
+    -fx-pref-width: 10px;
+    -fx-pref-height: 10px;
+}
+
+.tool-bar .check-box:focused .box {
+    -fx-border-color: -primary-color;
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 144, 226, 0.3), 3, 0, 0, 1);
+}
+
+/* TextField e PasswordField no toolbar */
+.tool-bar .text-field {
+    -fx-background-color: white;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 6px 10px;
+    -fx-font-size: 12px;
+    -fx-pref-width: 100px;
+    -fx-min-width: 100px;
+}
+
+.tool-bar .text-field:focused {
+    -fx-border-color: #4A90E2;
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 144, 226, 0.2), 4, 0, 0, 1);
+}
+
+/* ComboBox no toolbar */
+.tool-bar .combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-padding: 0;
+    -fx-pref-height: 30px;
+    -fx-min-height: 30px;
+}
+
+.tool-bar .combo-box:focused {
+    -fx-border-color: #4A90E2;
+}
+
+/* DatePicker no toolbar */
+.tool-bar .date-picker {
+    -fx-background-color: white;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+}
+
+.tool-bar .date-picker .text-field {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 8px 12px;
+}
+
+/* StackPane central */
+StackPane {
+    -fx-background-color: #f8f9fa;
+    -fx-padding: 15px;
+}
+
+/* Labels no StackPane */
+StackPane .label {
+    -fx-text-fill: #999999;
+    -fx-font-size: 13px;
+    -fx-font-style: italic;
+}
+
+/* Melhorias gerais para botões */
+.button {
+    -fx-background-color: #4A90E2;
+    -fx-text-fill: white;
+    -fx-font-weight: 500;
+    -fx-font-size: 12px;
+    -fx-padding: 7px 14px;
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-cursor: hand;
+    -fx-min-width: auto;
+    -fx-pref-width: auto;
+    -fx-max-width: auto;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 144, 226, 0.2), 4, 0, 0, 1);
+}
+
+.button:hover {
+    -fx-background-color: #357ABD;
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 144, 226, 0.3), 6, 0, 0, 2);
+    -fx-translate-y: -1px;
+}
+
+.button:pressed {
+    -fx-background-color: #2C5F8D;
+    -fx-translate-y: 0px;
+}
+
+/* ScrollBar personalizado */
+.scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 12px;
+}
+
+.scroll-bar:vertical .track {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 6px;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #c0c0c0;
+    -fx-background-radius: 6px;
+}
+
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #a0a0a0;
+}
+
+.scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-pref-height: 12px;
+}
+
+.scroll-bar:horizontal .track {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 6px;
+}
+
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: #c0c0c0;
+    -fx-background-radius: 6px;
+}
+
+.scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: #a0a0a0;
 }

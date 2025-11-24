@@ -28,9 +28,9 @@
         </HBox>
     </top>
     <left>
-        <VBox spacing="10" BorderPane.alignment="CENTER" prefWidth="220" style="-fx-background-color: #f5f5f5;">
-            <padding><Insets top="20" left="15" right="15" bottom="20"/></padding>
-            <Label text="StockRO AdminFX" style="-fx-font-size: 18; -fx-font-weight: bold;" />
+        <VBox spacing="8" BorderPane.alignment="CENTER" prefWidth="220" style="-fx-background-color: #ffffff;">
+            <padding><Insets top="15" left="12" right="12" bottom="15"/></padding>
+            <Label text="StockRO AdminFX" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #2C5F8D; -fx-padding: 0 0 10 0;" />
             <Separator />
             <Button fx:id="btnCustomers" text="Clientes" onAction="#showCustomers" prefWidth="180" />
             <Button fx:id="btnProducts" text="Produtos" onAction="#showProducts" prefWidth="180" />
