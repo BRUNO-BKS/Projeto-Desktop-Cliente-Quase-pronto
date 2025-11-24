@@ -33,6 +33,8 @@
             <Button text="Editar…" onAction="#onEdit" />
             <Button text="Remover" onAction="#onRemove" />
             <Button text="Exportar CSV" onAction="#onExportCsv" />
+            <Button text="Exportar Excel" onAction="#onExportExcel" />
+            <Button text="Exportar PDF" onAction="#onExportPdf" />
             <Button text="Fechar" onAction="#onClose" />
             <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
         </HBox>

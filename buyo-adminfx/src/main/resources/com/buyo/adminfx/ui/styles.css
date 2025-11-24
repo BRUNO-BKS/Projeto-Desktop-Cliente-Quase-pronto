@@ -1,27 +1,27 @@
-/* Variáveis de cores - Tema Laranja */
+/* Variáveis de cores - Tema Azul */
 .root {
     /* Cores principais */
-    -primary-color: #FF6B35;
-    -primary-hover: #E25A2B;
-    -primary-light: #FF8C5A;
-    -secondary-color: #FF9F1C;
+    -primary-color: #4A90E2;
+    -primary-hover: #357ABD;
+    -primary-light: #6BA3E8;
+    -secondary-color: #5B9BD5;
     -success-color: #2ECC71;
     -danger-color: #E74C3C;
     -warning-color: #F39C12;
-    -info-color: #FF6B35;
+    -info-color: #4A90E2;
     
     /* Cores de fundo */
     -bg-primary: #ffffff;
     -bg-secondary: #f8f9fa;
     -bg-tertiary: #f0f0f0;
-    -bg-light: #fff3e6;
+    -bg-light: #E8F2F9;
     -bg-white: #ffffff;
     -bg-gray: #f5f5f5;
     
     /* Cores de texto */
-    -text-primary: #e65c00;
-    -text-secondary: #ff8533;
-    -text-light: #ffb380;
+    -text-primary: #2C5F8D;
+    -text-secondary: #4A90E2;
+    -text-light: #8BB5E8;
     -text-muted: #999999;
     
     /* Bordas e cantos */
@@ -31,10 +31,10 @@
     -border-radius-lg: 20px;
     
     /* Sombras */
-    -shadow-sm: dropshadow(three-pass-box, rgba(255, 107, 53, 0.1), 4, 0, 1, 1);
-    -shadow: dropshadow(three-pass-box, rgba(255, 107, 53, 0.2), 8, 0, 2, 2);
-    -shadow-lg: dropshadow(three-pass-box, rgba(255, 107, 53, 0.25), 12, 0, 4, 4);
-    -shadow-primary: dropshadow(three-pass-box, rgba(255, 107, 53, 0.3), 8, 0, 2, 2);
+    -shadow-sm: dropshadow(three-pass-box, rgba(74, 144, 226, 0.1), 4, 0, 1, 1);
+    -shadow: dropshadow(three-pass-box, rgba(74, 144, 226, 0.2), 8, 0, 2, 2);
+    -shadow-lg: dropshadow(three-pass-box, rgba(74, 144, 226, 0.25), 12, 0, 4, 4);
+    -shadow-primary: dropshadow(three-pass-box, rgba(74, 144, 226, 0.3), 8, 0, 2, 2);
 }
 
 /* Estilos básicos */
@@ -56,13 +56,13 @@
     -fx-cursor: hand;
     -fx-min-width: 200px;
     -fx-alignment: center;
-    -fx-effect: dropshadow(three-pass-box, rgba(255, 107, 53, 0.3), 5, 0, 0, 2);
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 144, 226, 0.3), 5, 0, 0, 2);
     -fx-transition: all 0.2s;
 }
 
 .button:hover {
     -fx-background-color: -primary-hover;
-    -fx-effect: dropshadow(three-pass-box, rgba(255, 107, 53, 0.4), 8, 0, 0, 3);
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 144, 226, 0.4), 8, 0, 0, 3);
     -fx-translate-y: -1px;
 }
 
@@ -109,7 +109,7 @@
     -fx-font-size: 20px;
     -fx-font-weight: 10;
     -fx-fill: -primary-color;
-    -fx-effect: dropshadow(three-pass-box, rgba(255, 107, 53, 0.2), 5, 0, 0, 2);
+    -fx-effect: dropshadow(three-pass-box, rgba(74, 144, 226, 0.2), 5, 0, 0, 2);
 }
 
 /* Estilo para o título */
@@ -229,7 +229,7 @@
 
 /* Cores para diferentes status */
 .status-pendente {
-    -fx-background-color: #f39c12; /* Laranja */
+    -fx-background-color: #5B9BD5; /* Azul */
 }
 
 .status-aprovado {
@@ -264,7 +264,7 @@
 
 /* Estilo para DatePickers */
 .date-picker {
-    -fx-background-color: #f39c12;
+    -fx-background-color: #4A90E2;
     
     -fx-pref-height: 40px ;
     -fx-min-height: 40px;
@@ -436,7 +436,7 @@
 
 /* Estilo para datas próximas */
 .date-upcoming {
-    -fx-background-color: #fdebd0; /* Laranja claro */
-    -fx-text-fill: #d35400; /* Laranja escuro */
-    -fx-border-color: #f5b041;
+    -fx-background-color: #E8F2F9; /* Azul claro */
+    -fx-text-fill: #2C5F8D; /* Azul escuro */
+    -fx-border-color: #6BA3E8;
 }

@@ -16,6 +16,8 @@
             <Button text="Histórico…" onAction="#onHistory" />
             <Button text="Atualizar" onAction="#onRefresh" />
             <Button text="Exportar CSV" onAction="#onExportCsv" />
+            <Button text="Exportar Excel" onAction="#onExportExcel" />
+            <Button text="Exportar PDF" onAction="#onExportPdf" />
             <Button text="Exportar Pedido…" onAction="#onExportOrder" />
             <Button text="Aplicar Cupom…" onAction="#onApplyCoupon" />
             <Separator />

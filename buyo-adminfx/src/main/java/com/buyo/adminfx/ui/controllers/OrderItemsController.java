@@ -220,6 +220,137 @@ public class OrderItemsController {
     }
 
     @FXML
+    public void onExportExcel(ActionEvent e) {
+        if (rows.isEmpty()) { info("Exportar", "Sem itens para exportar."); return; }
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Salvar itens do pedido como Excel");
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel", "*.xlsx"));
+        java.io.File file = fc.showSaveDialog(itemsTable.getScene().getWindow());
+        if (file == null) return;
+        try {
+            org.apache.poi.ss.usermodel.Workbook workbook = new org.apache.poi.xssf.usermodel.XSSFWorkbook();
+            org.apache.poi.ss.usermodel.Sheet sheet = workbook.createSheet("Itens do Pedido");
+            
+            // Cabeçalho
+            org.apache.poi.ss.usermodel.Row headerRow = sheet.createRow(0);
+            String[] headers = {"ID", "Produto", "Quantidade", "Preço Unitário", "Subtotal"};
+            for (int i = 0; i < headers.length; i++) {
+                org.apache.poi.ss.usermodel.Cell cell = headerRow.createCell(i);
+                cell.setCellValue(headers[i]);
+                org.apache.poi.ss.usermodel.CellStyle style = workbook.createCellStyle();
+                org.apache.poi.ss.usermodel.Font font = workbook.createFont();
+                font.setBold(true);
+                style.setFont(font);
+                cell.setCellStyle(style);
+            }
+            
+            // Dados
+            int rowNum = 1;
+            for (Row r : rows) {
+                org.apache.poi.ss.usermodel.Row row = sheet.createRow(rowNum++);
+                row.createCell(0).setCellValue(r.getId());
+                row.createCell(1).setCellValue(r.getProduct());
+                row.createCell(2).setCellValue(r.getQuantity());
+                row.createCell(3).setCellValue(r.getUnitPrice() == null ? 0.0 : r.getUnitPrice().doubleValue());
+                row.createCell(4).setCellValue(r.getSubtotal() == null ? 0.0 : r.getSubtotal().doubleValue());
+            }
+            
+            // Ajustar largura das colunas
+            for (int i = 0; i < headers.length; i++) {
+                sheet.autoSizeColumn(i);
+            }
+            
+            try (java.io.FileOutputStream out = new java.io.FileOutputStream(file)) {
+                workbook.write(out);
+            }
+            workbook.close();
+            info("Exportar", "Arquivo Excel salvo: " + file.getAbsolutePath());
+        } catch (Exception ex) {
+            error("Exportar", "Falha ao salvar Excel: " + ex.getMessage());
+        }
+    }
+
+    @FXML
+    public void onExportPdf(ActionEvent e) {
+        if (rows.isEmpty()) { info("Exportar", "Sem itens para exportar."); return; }
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Salvar itens do pedido como PDF");
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF", "*.pdf"));
+        java.io.File file = fc.showSaveDialog(itemsTable.getScene().getWindow());
+        if (file == null) return;
+        try {
+            org.apache.pdfbox.pdmodel.PDDocument document = new org.apache.pdfbox.pdmodel.PDDocument();
+            org.apache.pdfbox.pdmodel.PDPage page = new org.apache.pdfbox.pdmodel.PDPage();
+            document.addPage(page);
+            
+            org.apache.pdfbox.pdmodel.font.PDType1Font fontBold = org.apache.pdfbox.pdmodel.font.PDType1Font.HELVETICA_BOLD;
+            org.apache.pdfbox.pdmodel.font.PDType1Font fontNormal = org.apache.pdfbox.pdmodel.font.PDType1Font.HELVETICA;
+            
+            org.apache.pdfbox.pdmodel.PDPageContentStream contentStream = 
+                new org.apache.pdfbox.pdmodel.PDPageContentStream(document, page);
+            
+            try {
+                contentStream.setFont(fontBold, 16);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(50, 750);
+                contentStream.showText("Itens do Pedido #" + orderId);
+                contentStream.endText();
+                
+                contentStream.setFont(fontNormal, 10);
+                float y = 720;
+                float x = 50;
+                float lineHeight = 15;
+                
+                // Cabeçalho
+                contentStream.beginText();
+                contentStream.newLineAtOffset(x, y);
+                contentStream.showText("ID | Produto | Quantidade | Preço Unitário | Subtotal");
+                contentStream.endText();
+                y -= lineHeight;
+                contentStream.moveTo(x, y);
+                contentStream.lineTo(550, y);
+                contentStream.stroke();
+                y -= lineHeight;
+                
+                // Dados
+                for (Row r : rows) {
+                    if (y < 50) {
+                        contentStream.close();
+                        page = new org.apache.pdfbox.pdmodel.PDPage();
+                        document.addPage(page);
+                        contentStream = new org.apache.pdfbox.pdmodel.PDPageContentStream(document, page);
+                        contentStream.setFont(fontNormal, 10);
+                        y = 750;
+                    }
+                    String line = String.format("%d | %s | %d | %s | %s",
+                            r.getId(),
+                            r.getProduct(),
+                            r.getQuantity(),
+                            r.getUnitPrice() == null ? "0.00" : r.getUnitPrice().toPlainString(),
+                            r.getSubtotal() == null ? "0.00" : r.getSubtotal().toPlainString()
+                    );
+                    contentStream.beginText();
+                    contentStream.newLineAtOffset(x, y);
+                    contentStream.showText(line);
+                    contentStream.endText();
+                    y -= lineHeight;
+                }
+                contentStream.close();
+            } finally {
+                if (contentStream != null) {
+                    try { contentStream.close(); } catch (Exception ignored) {}
+                }
+            }
+            
+            document.save(file);
+            document.close();
+            info("Exportar", "Arquivo PDF salvo: " + file.getAbsolutePath());
+        } catch (Exception ex) {
+            error("Exportar", "Falha ao salvar PDF: " + ex.getMessage());
+        }
+    }
+
+    @FXML
     public void onClose(ActionEvent e) {
         Stage st = (Stage) itemsTable.getScene().getWindow();
         st.close();

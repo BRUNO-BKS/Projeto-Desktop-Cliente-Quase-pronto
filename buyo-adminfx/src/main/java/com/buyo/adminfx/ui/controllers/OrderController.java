@@ -297,6 +297,139 @@ public class OrderController implements SearchableController {
         }
     }
 
+    @FXML
+    public void onExportExcel() {
+        if (filtered == null || table == null) { alertError("Exportar", "Nada para exportar."); return; }
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Salvar pedidos como Excel");
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel", "*.xlsx"));
+        java.io.File file = fc.showSaveDialog(table.getScene().getWindow());
+        if (file == null) return;
+        try {
+            org.apache.poi.ss.usermodel.Workbook workbook = new org.apache.poi.xssf.usermodel.XSSFWorkbook();
+            org.apache.poi.ss.usermodel.Sheet sheet = workbook.createSheet("Pedidos");
+            
+            // Cabeçalho
+            org.apache.poi.ss.usermodel.Row headerRow = sheet.createRow(0);
+            String[] headers = {"ID", "Cliente ID", "Cliente Nome", "Status", "Total", "Criado em"};
+            for (int i = 0; i < headers.length; i++) {
+                org.apache.poi.ss.usermodel.Cell cell = headerRow.createCell(i);
+                cell.setCellValue(headers[i]);
+                org.apache.poi.ss.usermodel.CellStyle style = workbook.createCellStyle();
+                org.apache.poi.ss.usermodel.Font font = workbook.createFont();
+                font.setBold(true);
+                style.setFont(font);
+                cell.setCellStyle(style);
+            }
+            
+            // Dados
+            int rowNum = 1;
+            for (Order o : filtered) {
+                org.apache.poi.ss.usermodel.Row row = sheet.createRow(rowNum++);
+                row.createCell(0).setCellValue(o.getId());
+                row.createCell(1).setCellValue(o.getCustomerId());
+                row.createCell(2).setCellValue(o.getCustomerName() == null ? "" : o.getCustomerName());
+                row.createCell(3).setCellValue(o.getStatus() == null ? "" : o.getStatus());
+                row.createCell(4).setCellValue(o.getTotal() == null ? 0.0 : o.getTotal().doubleValue());
+                row.createCell(5).setCellValue(o.getCreatedAt() == null ? "" : o.getCreatedAt().toString());
+            }
+            
+            // Ajustar largura das colunas
+            for (int i = 0; i < headers.length; i++) {
+                sheet.autoSizeColumn(i);
+            }
+            
+            try (java.io.FileOutputStream out = new java.io.FileOutputStream(file)) {
+                workbook.write(out);
+            }
+            workbook.close();
+            alertInfo("Exportar", "Arquivo Excel salvo: " + file.getAbsolutePath());
+        } catch (Exception ex) {
+            alertError("Exportar", "Falha ao salvar Excel: " + ex.getMessage());
+        }
+    }
+
+    @FXML
+    public void onExportPdf() {
+        if (filtered == null || table == null) { alertError("Exportar", "Nada para exportar."); return; }
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Salvar pedidos como PDF");
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF", "*.pdf"));
+        java.io.File file = fc.showSaveDialog(table.getScene().getWindow());
+        if (file == null) return;
+        try {
+            org.apache.pdfbox.pdmodel.PDDocument document = new org.apache.pdfbox.pdmodel.PDDocument();
+            org.apache.pdfbox.pdmodel.PDPage page = new org.apache.pdfbox.pdmodel.PDPage();
+            document.addPage(page);
+            
+            org.apache.pdfbox.pdmodel.font.PDType1Font fontBold = org.apache.pdfbox.pdmodel.font.PDType1Font.HELVETICA_BOLD;
+            org.apache.pdfbox.pdmodel.font.PDType1Font fontNormal = org.apache.pdfbox.pdmodel.font.PDType1Font.HELVETICA;
+            
+            org.apache.pdfbox.pdmodel.PDPageContentStream contentStream = 
+                new org.apache.pdfbox.pdmodel.PDPageContentStream(document, page);
+            
+            try {
+                contentStream.setFont(fontBold, 16);
+                contentStream.beginText();
+                contentStream.newLineAtOffset(50, 750);
+                contentStream.showText("Relatório de Pedidos");
+                contentStream.endText();
+                
+                contentStream.setFont(fontNormal, 10);
+                float y = 720;
+                float x = 50;
+                float lineHeight = 15;
+                
+                // Cabeçalho
+                contentStream.beginText();
+                contentStream.newLineAtOffset(x, y);
+                contentStream.showText("ID | Cliente ID | Cliente | Status | Total | Criado em");
+                contentStream.endText();
+                y -= lineHeight;
+                contentStream.moveTo(x, y);
+                contentStream.lineTo(550, y);
+                contentStream.stroke();
+                y -= lineHeight;
+                
+                // Dados
+                for (Order o : filtered) {
+                    if (y < 50) {
+                        contentStream.close();
+                        page = new org.apache.pdfbox.pdmodel.PDPage();
+                        document.addPage(page);
+                        contentStream = new org.apache.pdfbox.pdmodel.PDPageContentStream(document, page);
+                        contentStream.setFont(fontNormal, 10);
+                        y = 750;
+                    }
+                    String line = String.format("%d | %d | %s | %s | %s | %s",
+                            o.getId(),
+                            o.getCustomerId(),
+                            o.getCustomerName() == null ? "" : o.getCustomerName(),
+                            o.getStatus() == null ? "" : o.getStatus(),
+                            o.getTotal() == null ? "0.00" : o.getTotal().toPlainString(),
+                            o.getCreatedAt() == null ? "" : o.getCreatedAt().toString()
+                    );
+                    contentStream.beginText();
+                    contentStream.newLineAtOffset(x, y);
+                    contentStream.showText(line);
+                    contentStream.endText();
+                    y -= lineHeight;
+                }
+                contentStream.close();
+            } finally {
+                if (contentStream != null) {
+                    try { contentStream.close(); } catch (Exception ignored) {}
+                }
+            }
+            
+            document.save(file);
+            document.close();
+            alertInfo("Exportar", "Arquivo PDF salvo: " + file.getAbsolutePath());
+        } catch (Exception ex) {
+            alertError("Exportar", "Falha ao salvar PDF: " + ex.getMessage());
+        }
+    }
+
     private String safeCsv(String s) {
         if (s == null) return "";
         return s.replace("\"", "' ");
