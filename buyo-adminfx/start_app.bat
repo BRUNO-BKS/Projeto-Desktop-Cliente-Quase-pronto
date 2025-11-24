@@ -1,84 +1,152 @@
 @echo off
-setlocal
+setlocal enabledelayedexpansion
 
 :: ===============================
-::  Configuração do Java
+::  Script de inicialização do StockRO AdminFX
 :: ===============================
-set JAVA_HOME="C:\Program Files\Java\jdk-21"
-set PATH=%JAVA_HOME%\bin;%PATH%
-
-:: ===============================
-::  Configuração do JavaFX
-:: ===============================
-set JAVAFX_HOME=C:\javafx\javafx-sdk-21.0.2
-set MODULE_PATH=%JAVAFX_HOME%\lib
-set JAVAFX_MODULES=javafx.controls,javafx.fxml,javafx.graphics,javafx.base,javafx.media,javafx.swing,javafx.web
-
-echo ===============================
-echo  Java / JavaFX
-echo ===============================
-java -version
 echo.
-echo Módulos JavaFX: %JAVAFX_MODULES%
-echo Caminho do módulo: %MODULE_PATH%
+echo ========================================
+echo   StockRO AdminFX - Iniciando...
+echo ========================================
 echo.
 
 :: ===============================
-::  Build (Maven package)
+::  Verifica e configura Java
 :: ===============================
-echo Rodando Maven package para gerar o JAR...
+echo [1/4] Verificando Java...
 
-:: Tenta usar Maven embutido (tools\maven) se existir, senão usa mvn do sistema
-set MVN_CMD=
-if exist "tools\maven\apache-maven-3.9.9\bin\mvn.cmd" (
-    set "MVN_CMD=tools\maven\apache-maven-3.9.9\bin\mvn.cmd"
-) else (
-    set "MVN_CMD=mvn"
+:: Tenta detectar Java automaticamente
+set JAVA_CMD=java
+where java >nul 2>&1
+if errorlevel 1 (
+    echo ERRO: Java nao encontrado no PATH.
+    echo Por favor, instale o Java 21 ou configure o JAVA_HOME.
+    echo.
+    pause
+    exit /b 1
 )
 
-echo Usando Maven: %MVN_CMD%
+:: Verifica versão do Java
+for /f "tokens=3" %%g in ('java -version 2^>^&1 ^| findstr /i "version"') do (
+    set JAVA_VERSION=%%g
+    set JAVA_VERSION=!JAVA_VERSION:"=!
+    goto :java_version_found
+)
+:java_version_found
+
+echo Java encontrado: !JAVA_VERSION!
 echo.
 
-%MVN_CMD% -f pom.xml -q -DskipTests package
+:: ===============================
+::  Configura Maven
+:: ===============================
+echo [2/4] Configurando Maven...
+
+set MVN_CMD=
+set MVN_FOUND=0
+
+:: Primeiro, verifica se o Maven embutido existe (caminho relativo - pasta pai)
+set "MVN_EMBEDDED=..\tools\maven\apache-maven-3.9.9\bin\mvn.cmd"
+if exist "%MVN_EMBEDDED%" (
+    set "MVN_CMD=%MVN_EMBEDDED%"
+    set MVN_FOUND=1
+    echo Usando Maven embutido: %MVN_CMD%
+) else (
+    :: Verifica se está na mesma pasta
+    set "MVN_EMBEDDED=tools\maven\apache-maven-3.9.9\bin\mvn.cmd"
+    if exist "%MVN_EMBEDDED%" (
+        set "MVN_CMD=%MVN_EMBEDDED%"
+        set MVN_FOUND=1
+        echo Usando Maven embutido (mesma pasta): %MVN_CMD%
+    ) else (
+        :: Verifica se Maven está no PATH do sistema
+        where mvn >nul 2>&1
+        if not errorlevel 1 (
+            set "MVN_CMD=mvn"
+            set MVN_FOUND=1
+            echo Usando Maven do sistema: %MVN_CMD%
+        )
+    )
+)
+
+if %MVN_FOUND%==0 (
+    echo.
+    echo ERRO: Maven nao encontrado!
+    echo.
+    echo Procurando em:
+    echo   - ..\tools\maven\apache-maven-3.9.9\bin\mvn.cmd
+    echo   - tools\maven\apache-maven-3.9.9\bin\mvn.cmd
+    echo   - PATH do sistema
+    echo.
+    echo Diretorio atual: %CD%
+    echo.
+    echo Por favor, verifique se o Maven embutido existe ou instale o Maven.
+    echo.
+    pause
+    exit /b 1
+)
+echo.
+
+:: ===============================
+::  Compila o projeto
+:: ===============================
+echo [3/4] Compilando o projeto...
+echo.
+
+%MVN_CMD% clean compile -DskipTests
 if errorlevel 1 (
     echo.
-    echo ERRO: Maven falhou ao compilar o projeto.
-    echo Verifique as mensagens acima.
-    goto :EOF
+    echo ERRO: Falha na compilacao do projeto.
+    echo Verifique as mensagens de erro acima.
+    echo.
+    pause
+    exit /b 1
 )
 
 echo.
-echo Build concluido. Procurando JAR sombreado (*-shaded.jar) em target\...
-
-set "APP_JAR="
-for %%F in ("target\*-shaded.jar") do (
-    set "APP_JAR=%%F"
-)
-
-if "%APP_JAR%"=="" (
-    echo ERRO: Nenhum JAR sombreado (*-shaded.jar) foi encontrado em target\
-    goto :EOF
-)
-
-echo Usando JAR: %APP_JAR%
+echo Compilacao concluida com sucesso!
 echo.
 
 :: ===============================
 ::  Executa o aplicativo
 :: ===============================
-echo Iniciando o aplicativo...
+echo [4/4] Iniciando o aplicativo...
+echo.
 
-java ^
-     --module-path "%MODULE_PATH%" ^
-     --add-modules %JAVAFX_MODULES% ^
-     -Dskip.database=true ^
-     -Ddebug=true ^
-     -Dprism.verbose=true ^
-     -Djavafx.verbose=true ^
-     -Dprism.order=es2,es1,sw ^
-     -Dprism.forceGPU=true ^
-     -jar %APP_JAR%
+:: Usa o plugin JavaFX do Maven para executar
+%MVN_CMD% javafx:run -DskipTests
+
+if errorlevel 1 (
+    echo.
+    echo AVISO: Falha ao executar com javafx:run. Tentando metodo alternativo...
+    echo.
+    
+    :: Método alternativo: executa diretamente a classe Main
+    set MAIN_CLASS=com.buyo.adminfx.ui.MainApp
+    
+    :: Verifica se as classes compiladas existem
+    if not exist "target\classes\com\buyo\adminfx\ui\MainApp.class" (
+        echo ERRO: Classe principal nao encontrada.
+        echo Por favor, compile o projeto primeiro.
+        pause
+        exit /b 1
+    )
+    
+    :: Executa usando classpath
+    java -cp "target\classes;target\dependency\*" %MAIN_CLASS%
+    
+    if errorlevel 1 (
+        echo.
+        echo ERRO: Falha ao executar o aplicativo.
+        echo Verifique se todas as dependencias estao corretas.
+        pause
+        exit /b 1
+    )
+)
 
 echo.
-echo Execucao finalizada. Pressione qualquer tecla para fechar.
+echo ========================================
+echo   Aplicativo finalizado.
+echo ========================================
+echo.
 pause
